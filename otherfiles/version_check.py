@@ -20,7 +20,7 @@ CHANGELOG_ITEMS = [
     "https://github.com/sepandhaghighi/zenix/compare/v{0}...dev",
     "[{0}]:"]
 
-PARAMS_ITEMS = ['MY_TEXT_VERSION = "{0}"']
+PARAMS_ITEMS = ['ZENIX_VERSION = "{0}"']
 ISSUE_TEMPLATE_ITEMS = ["- Zenix {0}"]
 SECURITY_ITEMS = ["| {0}           | :white_check_mark: |", "| < {0}         | :x:                |"]
 
