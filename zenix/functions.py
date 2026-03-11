@@ -13,6 +13,7 @@ from nava import play
 
 NoiseType = Literal["white", "pink", "brown"]
 
+
 def generate_white(samples: int) -> np.ndarray:
     """
     Generate white noise.
@@ -142,8 +143,3 @@ def write_wav(filepath: str, audio: np.ndarray, sample_rate: int) -> None:
         wf.setsampwidth(2)
         wf.setframerate(sample_rate)
         wf.writeframes(audio.tobytes())
-
-
-
-
-
