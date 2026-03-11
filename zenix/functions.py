@@ -13,12 +13,6 @@ from nava import play
 
 NoiseType = Literal["white", "pink", "brown"]
 
-DEFAULT_SAMPLE_RATE: int = 44100
-DEFAULT_DURATION: float = 30.0
-DEFAULT_VOLUME: float = 0.3
-DEFAULT_FADE_IN: float = 2.0
-
-
 def generate_white(samples: int) -> np.ndarray:
     """
     Generate white noise.
