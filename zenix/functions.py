@@ -1,14 +1,9 @@
 # -*- coding: utf-8 -*-
 """zenix functions."""
-import argparse
-import os
-import sys
+
 import wave
-import tempfile
-import signal
 from typing import Literal
 import numpy as np
-from nava import play
 
 
 NoiseType = Literal["white", "pink", "brown"]
