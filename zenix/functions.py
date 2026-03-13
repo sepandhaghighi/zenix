@@ -4,9 +4,8 @@
 import wave
 from typing import Literal
 import numpy as np
+from .params import NoiseType
 
-
-NoiseType = Literal["white", "pink", "brown"]
 
 
 def generate_white(samples: int) -> np.ndarray:
@@ -105,11 +104,11 @@ def generate_noise(
     """
     samples = int(duration * sample_rate)
 
-    if noise_type == "white":
+    if noise_type == NoiseType.WHITE:
         audio = generate_white(samples)
-    elif noise_type == "pink":
+    elif noise_type == NoiseType.PINK:
         audio = generate_pink(samples)
-    elif noise_type == "brown":
+    elif noise_type == NoiseType.BROWN:
         audio = generate_brown(samples)
     else:
         raise ValueError("Unsupported noise type")
