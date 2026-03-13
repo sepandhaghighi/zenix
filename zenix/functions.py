@@ -137,3 +137,20 @@ def write_wav(filepath: str, audio: np.ndarray, sample_rate: int) -> None:
         wf.setsampwidth(2)
         wf.setframerate(sample_rate)
         wf.writeframes(audio.tobytes())
+
+
+def play_noise(filepath: str, audio: np.ndarray, sample_rate: int, loop: bool) -> None:
+    """
+    Play noise.
+
+    :param filepath: Target file path
+    :param audio: PCM int16 array
+    :param sample_rate: Sample rate
+    :param loop: Loop flag
+    """
+    write_wav(filepath, audio, sample_rate)
+    if loop:
+        while True:
+            play(filepath)
+    else:
+        play(filepath)
