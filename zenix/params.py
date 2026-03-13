@@ -7,7 +7,7 @@ ZENIX_VERSION = "0.1"
 
 class NoiseType(Enum):
     """Noise type enum"""
-    
+
     WHITE = "white"
     PINK = "pink"
     BROWN = "brown"

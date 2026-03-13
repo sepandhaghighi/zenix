@@ -7,7 +7,6 @@ import numpy as np
 from .params import NoiseType
 
 
-
 def generate_white_noise(samples: int) -> np.ndarray:
     """
     Generate white noise.
