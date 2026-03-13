@@ -8,7 +8,7 @@ from .params import NoiseType
 
 
 
-def generate_white(samples: int) -> np.ndarray:
+def generate_white_noise(samples: int) -> np.ndarray:
     """
     Generate white noise.
 
@@ -18,7 +18,7 @@ def generate_white(samples: int) -> np.ndarray:
     return np.random.normal(0, 1, samples).astype(np.float32)
 
 
-def generate_pink(samples: int) -> np.ndarray:
+def generate_pink_noise(samples: int) -> np.ndarray:
     """
     Generate pink noise using Voss-McCartney algorithm approximation.
 
@@ -32,7 +32,7 @@ def generate_pink(samples: int) -> np.ndarray:
     return pink.astype(np.float32)
 
 
-def generate_brown(samples: int) -> np.ndarray:
+def generate_brown_noise(samples: int) -> np.ndarray:
     """
     Generate brown (Brownian) noise.
 
@@ -105,11 +105,11 @@ def generate_noise(
     samples = int(duration * sample_rate)
 
     if noise_type == NoiseType.WHITE:
-        audio = generate_white(samples)
+        audio = generate_white_noise(samples)
     elif noise_type == NoiseType.PINK:
-        audio = generate_pink(samples)
+        audio = generate_pink_noise(samples)
     elif noise_type == NoiseType.BROWN:
-        audio = generate_brown(samples)
+        audio = generate_brown_noise(samples)
     else:
         raise ValueError("Unsupported noise type")
 
