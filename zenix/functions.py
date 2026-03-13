@@ -4,6 +4,7 @@
 import wave
 from typing import Literal
 import numpy as np
+from nava import play
 from .params import NoiseType
 
 

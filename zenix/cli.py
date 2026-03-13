@@ -4,9 +4,9 @@
 import argparse
 import tempfile
 import os
-from nava import play
 from .params import DEFAULT_SAMPLE_RATE, DEFAULT_DURATION
 from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN
+from .params import NoiseType
 from .functions import write_wav, generate_noise, play_noise
 
 
@@ -22,7 +22,7 @@ def _parse_args() -> argparse.Namespace:
 
     parser.add_argument(
         "-t", "--type",
-        choices=["white", "pink", "brown"],
+        choices=[x.value for x in NoiseType],
         default="white",
         help="Noise type"
     )
@@ -70,7 +70,7 @@ def _run(args: argparse.Namespace) -> None:
     print(f"Playing {args.type} noise... Press Ctrl+C to stop.")
 
     audio = generate_noise(
-        noise_type=args.type,
+        noise_type=NoiseType(args.type),
         duration=args.duration,
         sample_rate=DEFAULT_SAMPLE_RATE,
         volume=args.volume,
