@@ -70,6 +70,6 @@ setup(
     license='MIT',
     entry_points={
         'console_scripts': [
-            'zenix = zenix.functions:main',
+            'zenix = zenix.cli:main',
         ]}
 )
