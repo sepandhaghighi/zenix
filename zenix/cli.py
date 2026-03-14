@@ -4,10 +4,10 @@
 import argparse
 import tempfile
 import os
-from nava import play
 from .params import DEFAULT_SAMPLE_RATE, DEFAULT_DURATION
 from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN
-from .functions import write_wav, generate_noise
+from .params import NoiseType
+from .functions import write_wav, generate_noise, play_noise
 
 
 def _parse_args() -> argparse.Namespace:
@@ -22,7 +22,7 @@ def _parse_args() -> argparse.Namespace:
 
     parser.add_argument(
         "-t", "--type",
-        choices=["white", "pink", "brown"],
+        choices=[x.value for x in NoiseType],
         default="white",
         help="Noise type"
     )
@@ -70,7 +70,7 @@ def _run(args: argparse.Namespace) -> None:
     print(f"Playing {args.type} noise... Press Ctrl+C to stop.")
 
     audio = generate_noise(
-        noise_type=args.type,
+        noise_type=NoiseType(args.type),
         duration=args.duration,
         sample_rate=DEFAULT_SAMPLE_RATE,
         volume=args.volume,
@@ -81,13 +81,7 @@ def _run(args: argparse.Namespace) -> None:
         temp_path = tmp.name
 
     try:
-        write_wav(temp_path, audio, DEFAULT_SAMPLE_RATE)
-
-        if args.loop:
-            while True:
-                play(temp_path)
-        else:
-            play(temp_path)
+        play_noise(filepath=temp_path, audio=audio, sample_rate=DEFAULT_SAMPLE_RATE, loop=args.loop)
     finally:
         if os.path.exists(temp_path):
             os.remove(temp_path)

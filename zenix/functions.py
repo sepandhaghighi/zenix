@@ -4,12 +4,11 @@
 import wave
 from typing import Literal
 import numpy as np
+from nava import play
+from .params import NoiseType
 
 
-NoiseType = Literal["white", "pink", "brown"]
-
-
-def generate_white(samples: int) -> np.ndarray:
+def generate_white_noise(samples: int) -> np.ndarray:
     """
     Generate white noise.
 
@@ -19,7 +18,7 @@ def generate_white(samples: int) -> np.ndarray:
     return np.random.normal(0, 1, samples).astype(np.float32)
 
 
-def generate_pink(samples: int) -> np.ndarray:
+def generate_pink_noise(samples: int) -> np.ndarray:
     """
     Generate pink noise using Voss-McCartney algorithm approximation.
 
@@ -33,7 +32,7 @@ def generate_pink(samples: int) -> np.ndarray:
     return pink.astype(np.float32)
 
 
-def generate_brown(samples: int) -> np.ndarray:
+def generate_brown_noise(samples: int) -> np.ndarray:
     """
     Generate brown (Brownian) noise.
 
@@ -105,12 +104,12 @@ def generate_noise(
     """
     samples = int(duration * sample_rate)
 
-    if noise_type == "white":
-        audio = generate_white(samples)
-    elif noise_type == "pink":
-        audio = generate_pink(samples)
-    elif noise_type == "brown":
-        audio = generate_brown(samples)
+    if noise_type == NoiseType.WHITE:
+        audio = generate_white_noise(samples)
+    elif noise_type == NoiseType.PINK:
+        audio = generate_pink_noise(samples)
+    elif noise_type == NoiseType.BROWN:
+        audio = generate_brown_noise(samples)
     else:
         raise ValueError("Unsupported noise type")
 
@@ -138,3 +137,20 @@ def write_wav(filepath: str, audio: np.ndarray, sample_rate: int) -> None:
         wf.setsampwidth(2)
         wf.setframerate(sample_rate)
         wf.writeframes(audio.tobytes())
+
+
+def play_noise(filepath: str, audio: np.ndarray, sample_rate: int, loop: bool) -> None:
+    """
+    Play noise.
+
+    :param filepath: Target file path
+    :param audio: PCM int16 array
+    :param sample_rate: Sample rate
+    :param loop: Loop flag
+    """
+    write_wav(filepath, audio, sample_rate)
+    if loop:
+        while True:
+            play(filepath)
+    else:
+        play(filepath)
