@@ -24,14 +24,20 @@ def read_description() -> str:
             description += c.read()
         return description
     except Exception:
-        return '''TODO'''
+        return '''Zenix is a lightweight tool for generating procedural noise such as white, pink, and brown noise.
+        It can be used both as a command-line application and as a Python library, making it suitable for quick terminal
+        usage as well as integration into Python projects. Zenix generates noise programmatically using NumPy and plays 
+        it through an audio backend, allowing developers to create continuous background sound for focus, concentration, 
+        relaxation, or acoustic masking. With support for multiple noise types, configurable parameters, fade-in effects, 
+        and looping playback, Zenix provides a simple yet flexible way to work with procedural noise in both interactive 
+        and programmatic environments.'''
 
 
 setup(
     name='zenix',
     packages=['zenix'],
     version='0.1',
-    description='TODO',
+    description='Zenix: A Lightweight Tool for Procedural Noise Generation',
     long_description=read_description(),
     long_description_content_type='text/markdown',
     include_package_data=True,
