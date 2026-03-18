@@ -65,7 +65,7 @@ zenix --type=white --duration=120 --volume=0.25 --fade-in=2 --loop
 |----------|-------------|---------|
 | `--type` | Noise type (`white`, `pink`, `brown`) | `white` |
 | `--duration` | Duration of generated noise in seconds | `30` |
-| `--volume` | Output volume (0.0-1.0) | `0.3` |
+| `--volume` | Output volume multiplier | `0.3` |
 | `--fade-in` | Fade-in duration in seconds | `2` |
 | `--loop` | Enable continuous looping playback | `False` |
 
