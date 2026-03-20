@@ -62,7 +62,7 @@ zenix --type=white --duration=120 --volume=0.25 --fade-in=2 --loop
 
 | Argument | Description | Default |
 |----------|-------------|---------|
-| `--type` | Noise type (`white`, `pink`, `brown`) | `white` |
+| `--type` | Noise type  | `white` |
 | `--duration` | Duration of generated noise in seconds | `30` |
 | `--volume` | Output volume multiplier | `0.3` |
 | `--fade-in` | Fade-in duration in seconds | `2` |
@@ -90,7 +90,7 @@ play_noise(filepath=temp_path, audio=audio, sample_rate=44000, loop=True)
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `noise_type` | Noise type (`white`, `pink`, `brown`) | `white` |
+| `noise_type` | Noise type | `NoiseType.WHITE` |
 | `duration` | Duration of generated noise in seconds | `30` |
 | `sample_rate` | Audio sample rate in Hz | `44100` |
 | `volume` | Output volume multiplier | `0.3` |
