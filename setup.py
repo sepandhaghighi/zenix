@@ -45,7 +45,7 @@ setup(
     author_email='me@sepand.tech',
     url='https://github.com/sepandhaghighi/zenix',
     download_url='https://github.com/sepandhaghighi/zenix/tarball/v0.1',
-    keywords=keywords="noise white-noise pink-noise brown-noise audio sound dsp signal-processing cli productivity focus relaxation numpy",
+    keywords="noise white-noise pink-noise brown-noise audio sound dsp signal-processing cli productivity focus relaxation numpy",
     project_urls={
         'Source': 'https://github.com/sepandhaghighi/zenix'
     },
