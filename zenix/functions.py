@@ -86,11 +86,11 @@ def normalize(audio: np.ndarray) -> np.ndarray:
 
 
 def generate_noise(
-    noise_type: NoiseType,
-    duration: float,
-    sample_rate: int,
-    volume: float,
-    fade_in: float
+    noise_type: NoiseType = NoiseType.WHITE,
+    duration: float = DEFAULT_DURATION,
+    sample_rate: int = DEFAULT_SAMPLE_RATE,
+    volume: float = DEFAULT_VOLUME,
+    fade_in: float = DEFAULT_FADE_IN
 ) -> np.ndarray:
     """
     Generate selected noise type with fade-in and smoothing.
