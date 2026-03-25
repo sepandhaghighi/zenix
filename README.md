@@ -1,6 +1,5 @@
 <div align="center">
-<img src="https://github.com/sepandhaghighi/zenix/raw/main/otherfiles/logo.png" width="350">
-<h1>Zenix: TODO</h1>
+<h1>Zenix: A Lightweight Tool for Procedural Noise Generation</h1>
 <br/>
 <a href="https://www.python.org/"><img src="https://img.shields.io/badge/built%20with-Python3-green.svg" alt="built with Python3"></a>
 <a href="https://github.com/sepandhaghighi/zenix"><img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/sepandhaghighi/zenix"></a>
@@ -10,7 +9,7 @@
 ## Overview	
 
 <p align="justify">		
-TODO
+Zenix is a lightweight tool for generating procedural noise such as white, pink, and brown noise. It can be used both as a command-line application and as a Python library, making it suitable for quick terminal usage as well as integration into Python projects. Zenix generates noise programmatically using NumPy and plays it through an audio backend, allowing developers to create continuous background sound for focus, concentration, relaxation, or acoustic masking. With support for multiple noise types, configurable parameters, fade-in effects, and looping playback, Zenix provides a simple yet flexible way to work with procedural noise in both interactive and programmatic environments.
 </p>
 
 <table>
@@ -53,7 +52,49 @@ TODO
 
 ## Usage
 
-TODO
+### CLI
+
+```bash
+zenix --type=white --duration=120 --volume=0.25 --fade-in=2 --loop
+```
+
+#### Arguments
+
+| Argument | Description | Default |
+|----------|-------------|---------|
+| `--type` | Noise type  | `white` |
+| `--duration` | Duration of generated noise in seconds | `30` |
+| `--volume` | Output volume multiplier | `0.3` |
+| `--fade-in` | Fade-in duration in seconds | `2` |
+| `--loop` | Enable continuous looping playback | `False` |
+
+
+### Library
+
+```python
+import tempfile
+from zenix import generate_noise, play_noise, NoiseType
+audio = generate_noise(
+        noise_type=NoiseType.WHITE,
+        duration=120,
+        sample_rate=44000,
+        volume=0.25,
+        fade_in=2,
+    )
+with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
+    temp_path = tmp.name
+play_noise(filepath=temp_path, audio=audio, sample_rate=44000, loop=True)
+```
+
+#### Parameters
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `noise_type` | Noise type | `NoiseType.WHITE` |
+| `duration` | Duration of generated noise in seconds | `30` |
+| `sample_rate` | Audio sample rate in Hz | `44100` |
+| `volume` | Output volume multiplier | `0.3` |
+| `fade_in` | Fade-in duration in seconds | `2` |
 
 ## Issues & Bug Reports			
 

@@ -24,14 +24,20 @@ def read_description() -> str:
             description += c.read()
         return description
     except Exception:
-        return '''TODO'''
+        return '''Zenix is a lightweight tool for generating procedural noise such as white, pink, and brown noise.
+        It can be used both as a command-line application and as a Python library, making it suitable for quick terminal
+        usage as well as integration into Python projects. Zenix generates noise programmatically using NumPy and plays
+        it through an audio backend, allowing developers to create continuous background sound for focus, concentration,
+        relaxation, or acoustic masking. With support for multiple noise types, configurable parameters, fade-in effects,
+        and looping playback, Zenix provides a simple yet flexible way to work with procedural noise in both interactive
+        and programmatic environments.'''
 
 
 setup(
     name='zenix',
     packages=['zenix'],
     version='0.1',
-    description='TODO',
+    description='Zenix: A Lightweight Tool for Procedural Noise Generation',
     long_description=read_description(),
     long_description_content_type='text/markdown',
     include_package_data=True,
@@ -39,10 +45,9 @@ setup(
     author_email='me@sepand.tech',
     url='https://github.com/sepandhaghighi/zenix',
     download_url='https://github.com/sepandhaghighi/zenix/tarball/v0.1',
-    keywords="TODO",
+    keywords="noise white-noise pink-noise brown-noise audio sound dsp signal-processing cli productivity focus relaxation numpy",
     project_urls={
-        'Source': 'https://github.com/sepandhaghighi/zenix'
-    },
+        'Source': 'https://github.com/sepandhaghighi/zenix'},
     install_requires=get_requires(),
     python_requires='>=3.7',
     classifiers=[
@@ -62,14 +67,13 @@ setup(
         'Intended Audience :: Education',
         'Intended Audience :: End Users/Desktop',
         'Intended Audience :: Other Audience',
+        'Topic :: Multimedia :: Sound/Audio',
+        'Topic :: Multimedia :: Sound/Audio :: Sound Synthesis',
         'Topic :: Utilities',
-        "Topic :: Text Processing :: Linguistic",
-        "Topic :: Text Processing :: General",
-        "Topic :: Scientific/Engineering :: Artificial Intelligence",
+        'Topic :: Scientific/Engineering :: Signal Processing',
     ],
     license='MIT',
     entry_points={
         'console_scripts': [
             'zenix = zenix.cli:main',
-        ]}
-)
+        ]})
