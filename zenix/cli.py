@@ -77,14 +77,11 @@ def _run(args: argparse.Namespace) -> None:
         fade_in=args.fade_in,
     )
 
-    with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
-        temp_path = tmp.name
-
-    try:
-        play_noise(filepath=temp_path, audio=audio, sample_rate=DEFAULT_SAMPLE_RATE, loop=args.loop)
-    finally:
-        if os.path.exists(temp_path):
-            os.remove(temp_path)
+    play_noise(
+        audio=audio,
+        sample_rate=DEFAULT_SAMPLE_RATE,
+        loop=args.loop
+    )
 
 
 def main() -> None:
