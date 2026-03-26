@@ -4,7 +4,6 @@
 import os
 import wave
 import tempfile
-from typing import Literal
 import numpy as np
 from nava import play
 from .params import DEFAULT_SAMPLE_RATE, DEFAULT_DURATION
@@ -143,7 +142,7 @@ def write_wav(filepath: str, audio: np.ndarray, sample_rate: int) -> None:
         wf.writeframes(audio.tobytes())
 
 
-def play_noise(audio: np.ndarray, sample_rate: int, loop: bool) -> None:
+def play_noise(audio: np.ndarray, sample_rate: int = DEFAULT_SAMPLE_RATE, loop: bool = False) -> None:
     """
     Play noise.
 
