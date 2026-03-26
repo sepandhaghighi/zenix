@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """zenix functions."""
 
+import os
 import wave
 from typing import Literal
 import numpy as np
@@ -139,18 +140,26 @@ def write_wav(filepath: str, audio: np.ndarray, sample_rate: int) -> None:
         wf.writeframes(audio.tobytes())
 
 
-def play_noise(filepath: str, audio: np.ndarray, sample_rate: int, loop: bool) -> None:
+def play_noise(audio: np.ndarray, sample_rate: int, loop: bool) -> None:
     """
     Play noise.
 
-    :param filepath: Target file path
     :param audio: PCM int16 array
     :param sample_rate: Sample rate
     :param loop: Loop flag
     """
-    write_wav(filepath, audio, sample_rate)
-    if loop:
-        while True:
+    with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
+        filepath = tmp.name
+    try:
+        write_wav(filepath, audio, sample_rate)
+        if loop:
+            try:
+                while True:
+                    play(filepath)
+            except KeyboardInterrupt:
+                pass
+        else:
             play(filepath)
-    else:
-        play(filepath)
+    finally:
+        if os.path.exists(filepath):
+            os.remove(filepath)
