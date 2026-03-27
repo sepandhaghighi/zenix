@@ -75,7 +75,7 @@ def _apply_fade_out(audio: np.ndarray, sample_rate: int, fade_duration: float) -
     audio[-fade_samples:] *= fade_curve
 
 
-def normalize(audio: np.ndarray) -> np.ndarray:
+def _normalize(audio: np.ndarray) -> np.ndarray:
     """
     Normalize audio signal.
 
@@ -116,7 +116,7 @@ def generate_noise(
     else:
         raise ValueError("Unsupported noise type")
 
-    audio = normalize(audio)
+    audio = _normalize(audio)
 
     _apply_fade_in(audio, sample_rate, fade_in)
 
