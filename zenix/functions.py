@@ -61,7 +61,7 @@ def _apply_fade_in(audio: np.ndarray, sample_rate: int, fade_duration: float) ->
     audio[:fade_samples] *= fade_curve
 
 
-def apply_fade_out(audio: np.ndarray, sample_rate: int, fade_duration: float) -> None:
+def _apply_fade_out(audio: np.ndarray, sample_rate: int, fade_duration: float) -> None:
     """
     Apply linear fade-out to audio in-place.
 
@@ -120,7 +120,7 @@ def generate_noise(
 
     _apply_fade_in(audio, sample_rate, fade_in)
 
-    apply_fade_out(audio, sample_rate, 1.0)
+    _apply_fade_out(audio, sample_rate, 1.0)
 
     audio *= volume
 
