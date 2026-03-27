@@ -72,7 +72,6 @@ zenix --type=white --duration=120 --volume=0.25 --fade-in=2 --loop
 ### Library
 
 ```python
-import tempfile
 from zenix import generate_noise, play_noise, NoiseType
 audio = generate_noise(
         noise_type=NoiseType.WHITE,
@@ -81,9 +80,7 @@ audio = generate_noise(
         volume=0.25,
         fade_in=2,
     )
-with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
-    temp_path = tmp.name
-play_noise(filepath=temp_path, audio=audio, sample_rate=44000, loop=True)
+play_noise(audio=audio, sample_rate=44000, loop=True)
 ```
 
 #### Parameters

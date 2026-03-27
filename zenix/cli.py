@@ -2,12 +2,11 @@
 """zenix cli."""
 
 import argparse
-import tempfile
 import os
 from .params import DEFAULT_SAMPLE_RATE, DEFAULT_DURATION
 from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN
 from .params import NoiseType
-from .functions import write_wav, generate_noise, play_noise
+from .functions import generate_noise, play_noise
 
 
 def _parse_args() -> argparse.Namespace:
@@ -77,14 +76,11 @@ def _run(args: argparse.Namespace) -> None:
         fade_in=args.fade_in,
     )
 
-    with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
-        temp_path = tmp.name
-
-    try:
-        play_noise(filepath=temp_path, audio=audio, sample_rate=DEFAULT_SAMPLE_RATE, loop=args.loop)
-    finally:
-        if os.path.exists(temp_path):
-            os.remove(temp_path)
+    play_noise(
+        audio=audio,
+        sample_rate=DEFAULT_SAMPLE_RATE,
+        loop=args.loop
+    )
 
 
 def main() -> None:
