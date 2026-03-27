@@ -35,7 +35,7 @@ def _generate_pink_noise(samples: int) -> np.ndarray:
     return pink.astype(np.float32)
 
 
-def generate_brown_noise(samples: int) -> np.ndarray:
+def _generate_brown_noise(samples: int) -> np.ndarray:
     """
     Generate brown (Brownian) noise.
 
@@ -112,7 +112,7 @@ def generate_noise(
     elif noise_type == NoiseType.PINK:
         audio = _generate_pink_noise(samples)
     elif noise_type == NoiseType.BROWN:
-        audio = generate_brown_noise(samples)
+        audio = _generate_brown_noise(samples)
     else:
         raise ValueError("Unsupported noise type")
 
