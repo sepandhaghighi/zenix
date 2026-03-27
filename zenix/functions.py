@@ -11,7 +11,7 @@ from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN
 from .params import NoiseType
 
 
-def generate_white_noise(samples: int) -> np.ndarray:
+def _generate_white_noise(samples: int) -> np.ndarray:
     """
     Generate white noise.
 
@@ -108,7 +108,7 @@ def generate_noise(
     samples = int(duration * sample_rate)
 
     if noise_type == NoiseType.WHITE:
-        audio = generate_white_noise(samples)
+        audio = _generate_white_noise(samples)
     elif noise_type == NoiseType.PINK:
         audio = generate_pink_noise(samples)
     elif noise_type == NoiseType.BROWN:
