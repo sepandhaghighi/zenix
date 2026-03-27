@@ -127,7 +127,7 @@ def generate_noise(
     return (audio * 32767).astype(np.int16)
 
 
-def write_wav(filepath: str, audio: np.ndarray, sample_rate: int) -> None:
+def _write_wav(filepath: str, audio: np.ndarray, sample_rate: int) -> None:
     """
     Write PCM audio to WAV file.
 
@@ -153,7 +153,7 @@ def play_noise(audio: np.ndarray, sample_rate: int = DEFAULT_SAMPLE_RATE, loop: 
     with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
         filepath = tmp.name
     try:
-        write_wav(filepath, audio, sample_rate)
+        _write_wav(filepath, audio, sample_rate)
         if loop:
             try:
                 while True:
