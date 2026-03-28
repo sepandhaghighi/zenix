@@ -11,7 +11,7 @@ from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN
 from .params import NoiseType
 
 
-def generate_white_noise(samples: int) -> np.ndarray:
+def _generate_white_noise(samples: int) -> np.ndarray:
     """
     Generate white noise.
 
@@ -21,7 +21,7 @@ def generate_white_noise(samples: int) -> np.ndarray:
     return np.random.normal(0, 1, samples).astype(np.float32)
 
 
-def generate_pink_noise(samples: int) -> np.ndarray:
+def _generate_pink_noise(samples: int) -> np.ndarray:
     """
     Generate pink noise using Voss-McCartney algorithm approximation.
 
@@ -35,7 +35,7 @@ def generate_pink_noise(samples: int) -> np.ndarray:
     return pink.astype(np.float32)
 
 
-def generate_brown_noise(samples: int) -> np.ndarray:
+def _generate_brown_noise(samples: int) -> np.ndarray:
     """
     Generate brown (Brownian) noise.
 
@@ -47,7 +47,7 @@ def generate_brown_noise(samples: int) -> np.ndarray:
     return brown.astype(np.float32)
 
 
-def apply_fade_in(audio: np.ndarray, sample_rate: int, fade_duration: float) -> None:
+def _apply_fade_in(audio: np.ndarray, sample_rate: int, fade_duration: float) -> None:
     """
     Apply linear fade-in to audio in-place.
 
@@ -61,7 +61,7 @@ def apply_fade_in(audio: np.ndarray, sample_rate: int, fade_duration: float) -> 
     audio[:fade_samples] *= fade_curve
 
 
-def apply_fade_out(audio: np.ndarray, sample_rate: int, fade_duration: float) -> None:
+def _apply_fade_out(audio: np.ndarray, sample_rate: int, fade_duration: float) -> None:
     """
     Apply linear fade-out to audio in-place.
 
@@ -75,7 +75,7 @@ def apply_fade_out(audio: np.ndarray, sample_rate: int, fade_duration: float) ->
     audio[-fade_samples:] *= fade_curve
 
 
-def normalize(audio: np.ndarray) -> np.ndarray:
+def _normalize(audio: np.ndarray) -> np.ndarray:
     """
     Normalize audio signal.
 
@@ -108,26 +108,26 @@ def generate_noise(
     samples = int(duration * sample_rate)
 
     if noise_type == NoiseType.WHITE:
-        audio = generate_white_noise(samples)
+        audio = _generate_white_noise(samples)
     elif noise_type == NoiseType.PINK:
-        audio = generate_pink_noise(samples)
+        audio = _generate_pink_noise(samples)
     elif noise_type == NoiseType.BROWN:
-        audio = generate_brown_noise(samples)
+        audio = _generate_brown_noise(samples)
     else:
         raise ValueError("Unsupported noise type")
 
-    audio = normalize(audio)
+    audio = _normalize(audio)
 
-    apply_fade_in(audio, sample_rate, fade_in)
+    _apply_fade_in(audio, sample_rate, fade_in)
 
-    apply_fade_out(audio, sample_rate, 1.0)
+    _apply_fade_out(audio, sample_rate, 1.0)
 
     audio *= volume
 
     return (audio * 32767).astype(np.int16)
 
 
-def write_wav(filepath: str, audio: np.ndarray, sample_rate: int) -> None:
+def _write_wav(filepath: str, audio: np.ndarray, sample_rate: int) -> None:
     """
     Write PCM audio to WAV file.
 
@@ -153,7 +153,7 @@ def play_noise(audio: np.ndarray, sample_rate: int = DEFAULT_SAMPLE_RATE, loop: 
     with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
         filepath = tmp.name
     try:
-        write_wav(filepath, audio, sample_rate)
+        _write_wav(filepath, audio, sample_rate)
         if loop:
             try:
                 while True:
