@@ -3,6 +3,7 @@
 
 import argparse
 import os
+import sys
 from .params import DEFAULT_SAMPLE_RATE, DEFAULT_DURATION
 from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN
 from .params import NoiseType
