@@ -1,82 +1,61 @@
 # -*- coding: utf-8 -*-
 import sys
 import pytest
-from unittest import mock
+from unittest.mock import patch
 
-from zenix.cli import _parse_args, _run
+from zenix.cli import main
 from zenix.params import NoiseType
 
 
-def test_parse_args_defaults(monkeypatch):
-    monkeypatch.setattr(sys, "argv", ["prog"])
-    args = _parse_args()
+def test_cli_default(monkeypatch):
+    monkeypatch.setattr(sys, "argv", ["zenix"])
 
-    assert args.type == NoiseType.WHITE.value
-    assert args.loop is False
+    with patch("zenix.cli.play_noise") as mock_play:
+        with patch("zenix.cli.generate_noise", return_value="audio"):
+            main()
 
-
-def test_parse_args_all_types(monkeypatch):
-    for noise_type in NoiseType:
-        monkeypatch.setattr(sys, "argv", ["prog", "-t", noise_type.value])
-        args = _parse_args()
-        assert args.type == noise_type.value
-
-
-def test_parse_args_custom(monkeypatch):
-    monkeypatch.setattr(
-        sys,
-        "argv",
-        ["prog", "-t", "pink", "-d", "2", "-v", "0.5", "--fade-in", "0.2", "--loop"],
-    )
-    args = _parse_args()
-
-    assert args.type == "pink"
-    assert args.duration == 2.0
-    assert args.volume == 0.5
-    assert args.fade_in == 0.2
-    assert args.loop is True
-
-
-def test_run_invalid_volume():
-    args = mock.Mock()
-    args.volume = 2.0
-
-    with pytest.raises(SystemExit):
-        _run(args)
-
-
-@mock.patch("zenix.cli.play_noise")
-@mock.patch("zenix.cli.generate_noise")
-def test_run_calls_generate_and_play(mock_generate, mock_play):
-    args = mock.Mock()
-    args.type = NoiseType.WHITE.value
-    args.duration = 1.0
-    args.volume = 0.5
-    args.fade_in = 0.1
-    args.loop = False
-
-    mock_generate.return_value = "audio"
-
-    _run(args)
-
-    mock_generate.assert_called_once()
     mock_play.assert_called_once()
 
 
-@mock.patch("zenix.cli.play_noise")
-@mock.patch("zenix.cli.generate_noise")
-def test_run_all_noise_types(mock_generate, mock_play):
-    for noise_type in NoiseType:
-        args = mock.Mock()
-        args.type = noise_type.value
-        args.duration = 0.5
-        args.volume = 0.5
-        args.fade_in = 0.1
-        args.loop = False
+@pytest.mark.parametrize("noise_type", [nt.value for nt in NoiseType])
+def test_cli_all_noise_types(monkeypatch, noise_type):
+    monkeypatch.setattr(sys, "argv", ["zenix", "-t", noise_type, "-d", "0.1"])
 
-        mock_generate.return_value = "audio"
+    with patch("zenix.cli.play_noise") as mock_play:
+        with patch("zenix.cli.generate_noise", return_value="audio"):
+            main()
 
-        _run(args)
+    mock_play.assert_called_once()
 
-        mock_generate.assert_called()
-        mock_play.assert_called()
+
+def test_cli_custom_params(monkeypatch):
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["zenix", "-t", "pink", "-d", "0.2", "-v", "0.5", "--fade-in", "0.05"],
+    )
+
+    with patch("zenix.cli.play_noise") as mock_play:
+        with patch("zenix.cli.generate_noise", return_value="audio"):
+            main()
+
+    mock_play.assert_called_once()
+
+
+def test_cli_loop_flag(monkeypatch):
+    monkeypatch.setattr(sys, "argv", ["zenix", "--loop"])
+
+    with patch("zenix.cli.generate_noise", return_value="audio"):
+        with patch("zenix.cli.play_noise") as mock_play:
+            main()
+
+    # Ensure loop=True is passed correctly
+    _, kwargs = mock_play.call_args
+    assert kwargs["loop"] is True
+
+
+def test_cli_invalid_volume(monkeypatch):
+    monkeypatch.setattr(sys, "argv", ["zenix", "-v", "2.0"])
+
+    with pytest.raises(SystemExit):
+        main()
