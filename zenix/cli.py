@@ -85,8 +85,6 @@ def _run(args: argparse.Namespace) -> None:
 
 
 def main() -> None:
-    """
-    CLI entry point.
-    """
+    """CLI entry point."""
     args = _parse_args()
     _run(args)
