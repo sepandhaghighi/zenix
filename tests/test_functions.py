@@ -2,8 +2,8 @@
 import numpy as np
 import pytest
 
-from zenix.functions import generate_noise, play_noise
-from zenix.params import NoiseType
+from zenix import generate_noise, play_noise
+from zenix import NoiseType
 
 
 @pytest.mark.parametrize("noise_type", list(NoiseType))
