@@ -4,7 +4,7 @@ import pytest
 from unittest.mock import patch
 
 from zenix.cli import main
-from zenix.params import NoiseType
+from zenix import NoiseType
 
 
 def test_cli_default(monkeypatch):
@@ -48,14 +48,11 @@ def test_cli_loop_flag(monkeypatch):
     with patch("zenix.cli.generate_noise", return_value="audio"):
         with patch("zenix.cli.play_noise") as mock_play:
             main()
-
-    # Ensure loop=True is passed correctly
     _, kwargs = mock_play.call_args
     assert kwargs["loop"] is True
 
 
 def test_cli_invalid_volume(monkeypatch):
     monkeypatch.setattr(sys, "argv", ["zenix", "-v", "2.0"])
-
     with pytest.raises(SystemExit):
         main()
