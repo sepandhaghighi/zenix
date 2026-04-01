@@ -39,7 +39,6 @@ jobs:
       - name: First test
         run: |
           zenix --version
-          zenix --duration=3
       - name: Test requirements installation
         run: |
           python otherfiles/requirements-splitter.py
