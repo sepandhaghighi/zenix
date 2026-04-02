@@ -6,7 +6,7 @@ import os
 import sys
 from .params import DEFAULT_SAMPLE_RATE, DEFAULT_DURATION
 from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN
-from .params import NoiseType
+from .params import ZENIX_VERSION, NoiseType
 from .functions import generate_noise, play_noise
 
 
@@ -18,6 +18,12 @@ def _parse_args() -> argparse.Namespace:
     """
     parser = argparse.ArgumentParser(
         description="Developer-focused procedural noise generator."
+    )
+
+    parser.add_argument(
+        "--version",
+        action="store_true",
+        help="Version",
     )
 
     parser.add_argument(
@@ -63,6 +69,9 @@ def _run(args: argparse.Namespace) -> None:
 
     args: arguments
     """
+    if args.version:
+        print(ZENIX_VERSION)
+        return
     if not 0.0 <= args.volume <= 1.0:
         print("Volume must be between 0 and 1.")
         sys.exit(1)

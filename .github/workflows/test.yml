@@ -36,6 +36,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install .
+      - name: First test
+        run: |
+          zenix --version
       - name: Test requirements installation
         run: |
           python otherfiles/requirements-splitter.py
