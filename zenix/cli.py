@@ -76,7 +76,7 @@ def _run(args: argparse.Namespace) -> None:
         print("Volume must be between 0 and 1.")
         sys.exit(1)
 
-    print(f"Playing {args.type} noise... Press Ctrl+C to stop.")
+    print(f"Playing {args.type} noise...\nPress Ctrl+C to stop.")
 
     audio = generate_noise(
         noise_type=NoiseType(args.type),
