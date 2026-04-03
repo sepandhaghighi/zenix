@@ -70,7 +70,6 @@ setup(
         'Topic :: Multimedia :: Sound/Audio',
         'Topic :: Multimedia :: Sound/Audio :: Sound Synthesis',
         'Topic :: Utilities',
-        'Topic :: Scientific/Engineering :: Signal Processing',
     ],
     license='MIT',
     entry_points={
