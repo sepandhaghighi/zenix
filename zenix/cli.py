@@ -55,6 +55,13 @@ def _parse_args() -> argparse.Namespace:
     )
 
     parser.add_argument(
+        "--sample-rate",
+        type=float,
+        default=DEFAULT_SAMPLE_RATE,
+        help="Audio sample rate in Hz"
+    )
+
+    parser.add_argument(
         "--loop",
         action="store_true",
         help="Loop playback"
@@ -81,14 +88,14 @@ def _run(args: argparse.Namespace) -> None:
     audio = generate_noise(
         noise_type=NoiseType(args.type),
         duration=args.duration,
-        sample_rate=DEFAULT_SAMPLE_RATE,
+        sample_rate=args.sample_rate,
         volume=args.volume,
         fade_in=args.fade_in,
     )
 
     play_noise(
         audio=audio,
-        sample_rate=DEFAULT_SAMPLE_RATE,
+        sample_rate=args.sample_rate,
         loop=args.loop
     )
 
