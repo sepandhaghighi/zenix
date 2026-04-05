@@ -43,7 +43,7 @@ Zenix is a lightweight tool for generating procedural noise such as white, pink,
     <tr> 
         <td align="center">Code Quality</td>
         <td align="center"><a href="https://app.codacy.com/gh/sepandhaghighi/zenix/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade"><img src="https://app.codacy.com/project/badge/Grade/c054b58a766d4251802e6bc7df8f8e95"></a></td>
-        <td align="center"></td>
+        <td align="center"><a href="https://www.codefactor.io/repository/github/sepandhaghighi/zenix"><img src="https://www.codefactor.io/repository/github/sepandhaghighi/zenix/badge" alt="CodeFactor"></a></td>
     </tr>
 </table>
 
