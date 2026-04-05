@@ -56,7 +56,7 @@ Zenix is a lightweight tool for generating procedural noise such as white, pink,
 ### CLI
 
 ```bash
-zenix --type=white --duration=120 --volume=0.25 --fade-in=2 --loop
+zenix --type=white --duration=120 --volume=0.25 --fade-in=2 --sample-rate=44000 --loop
 ```
 
 #### Arguments
@@ -67,6 +67,7 @@ zenix --type=white --duration=120 --volume=0.25 --fade-in=2 --loop
 | `--duration` | Duration of generated noise in seconds | `30` |
 | `--volume` | Output volume multiplier | `0.3` |
 | `--fade-in` | Fade-in duration in seconds | `2` |
+| `--sample-rate` | Audio sample rate in Hz | `44100` |
 | `--loop` | Enable continuous looping playback | `False` |
 
 
