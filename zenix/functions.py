@@ -20,13 +20,14 @@ from .params import INVALID_AUDIO_DIMENSION_ERROR, INVALID_AUDIO_EMPTY_ERROR
 from .params import INVALID_PLAY_SAMPLE_RATE_TYPE_ERROR, INVALID_PLAY_SAMPLE_RATE_VALUE_ERROR
 from .params import INVALID_LOOP_TYPE_ERROR
 
+
 def _validate_generate_noise(
     noise_type: Any,
     duration: Any,
     sample_rate: Any,
     volume: Any,
     fade_in: Any,
-    ) -> None:
+) -> None:
     """
     Validate generate_noise inputs.
 
@@ -72,7 +73,7 @@ def _validate_play_noise(
     audio: Any,
     sample_rate: Any,
     loop: Any,
-    ) -> None:
+) -> None:
     """
     Validate play_noise inputs.
 

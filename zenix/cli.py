@@ -95,7 +95,7 @@ def _run(args: argparse.Namespace) -> None:
     except ValueError as e:
         print(e)
         sys.exit(1)
-    
+
 
 def main() -> None:
     """CLI entry point."""
