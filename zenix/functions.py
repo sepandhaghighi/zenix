@@ -4,11 +4,59 @@
 import os
 import wave
 import tempfile
+from typing import Any
 import numpy as np
 from nava import play
 from .params import DEFAULT_SAMPLE_RATE, DEFAULT_DURATION
 from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN
 from .params import NoiseType
+
+def _validate_generate_noise(
+    noise_type: Any,
+    duration: Any,
+    sample_rate: Any,
+    volume: Any,
+    fade_in: Any,
+    ) -> None:
+    """
+    Validate generate_noise inputs.
+
+    :param noise_type: Noise type (NoiseType)
+    :param duration: Duration in seconds
+    :param sample_rate: Sample rate in Hz
+    :param volume: Volume (0.0 - 1.0)
+    :param fade_in: Fade-in duration in seconds
+    """
+
+    if not isinstance(noise_type, NoiseType):
+        raise ValueError("Invalid noise_type. Must be an instance of NoiseType.")
+
+    if not isinstance(duration, (int, float)):
+        raise ValueError("Duration must be a number.")
+
+    if duration <= 0:
+        raise ValueError("Duration must be greater than 0.")
+
+    if not isinstance(sample_rate, int):
+        raise ValueError("Sample rate must be an integer.")
+
+    if sample_rate <= 0:
+        raise ValueError("Sample rate must be greater than 0.")
+
+    if not isinstance(volume, (int, float)):
+        raise ValueError("Volume must be a number.")
+
+    if not (0.0 <= volume <= 1.0):
+        raise ValueError("Volume must be between 0.0 and 1.0.")
+
+    if not isinstance(fade_in, (int, float)):
+        raise ValueError("Fade-in must be a number.")
+
+    if fade_in < 0:
+        raise ValueError("Fade-in must be >= 0.")
+
+    if fade_in > duration:
+        raise ValueError("Fade-in cannot be greater than duration.")
 
 
 def _generate_white_noise(samples: int) -> np.ndarray:
