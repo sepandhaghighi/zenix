@@ -78,26 +78,24 @@ def _run(args: argparse.Namespace) -> None:
     if args.version:
         print(ZENIX_VERSION)
         return
-    if not 0.0 <= args.volume <= 1.0:
-        print("Volume must be between 0 and 1.")
+    try:
+        print(f"Playing {args.type} noise...\nPress Ctrl+C to stop.")
+        audio = generate_noise(
+            noise_type=NoiseType(args.type),
+            duration=args.duration,
+            sample_rate=args.sample_rate,
+            volume=args.volume,
+            fade_in=args.fade_in,
+        )
+        play_noise(
+            audio=audio,
+            sample_rate=args.sample_rate,
+            loop=args.loop
+        )
+    except ValueError as e:
+        print(e)
         sys.exit(1)
-
-    print(f"Playing {args.type} noise...\nPress Ctrl+C to stop.")
-
-    audio = generate_noise(
-        noise_type=NoiseType(args.type),
-        duration=args.duration,
-        sample_rate=args.sample_rate,
-        volume=args.volume,
-        fade_in=args.fade_in,
-    )
-
-    play_noise(
-        audio=audio,
-        sample_rate=args.sample_rate,
-        loop=args.loop
-    )
-
+    
 
 def main() -> None:
     """CLI entry point."""
