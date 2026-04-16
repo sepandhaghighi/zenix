@@ -37,7 +37,6 @@ def _validate_generate_noise(
     :param volume: Volume (0.0 - 1.0)
     :param fade_in: Fade-in duration in seconds
     """
-
     if not isinstance(noise_type, NoiseType):
         raise ValueError(INVALID_NOISE_TYPE_ERROR)
 
@@ -81,7 +80,6 @@ def _validate_play_noise(
     :param sample_rate: Sample rate in Hz
     :param loop: Loop flag
     """
-
     if not isinstance(audio, np.ndarray):
         raise ValueError(INVALID_AUDIO_TYPE_ERROR)
 
