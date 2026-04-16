@@ -32,3 +32,13 @@ INVALID_VOLUME_RANGE_ERROR = "`volume` must be between 0.0 and 1.0."
 INVALID_FADE_IN_TYPE_ERROR = "`fade_in` must be int or float."
 INVALID_FADE_IN_VALUE_ERROR = "`fade_in` must be greater than or equal to 0."
 INVALID_FADE_IN_RANGE_ERROR = "`fade_in` must not exceed `duration`."
+
+INVALID_AUDIO_TYPE_ERROR = "`audio` must be a numpy.ndarray."
+INVALID_AUDIO_DTYPE_ERROR = "`audio` must have dtype int16."
+INVALID_AUDIO_DIMENSION_ERROR = "`audio` must be a 1D array."
+INVALID_AUDIO_EMPTY_ERROR = "`audio` must not be empty."
+
+INVALID_PLAY_SAMPLE_RATE_TYPE_ERROR = "`sample_rate` must be int."
+INVALID_PLAY_SAMPLE_RATE_VALUE_ERROR = "`sample_rate` must be greater than 0."
+
+INVALID_LOOP_TYPE_ERROR = "`loop` must be bool."

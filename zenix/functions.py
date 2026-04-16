@@ -15,6 +15,10 @@ from .params import INVALID_DURATION_TYPE_ERROR, INVALID_DURATION_VALUE_ERROR
 from .params import INVALID_SAMPLE_RATE_TYPE_ERROR, INVALID_SAMPLE_RATE_VALUE_ERROR
 from .params import INVALID_VOLUME_TYPE_ERROR, INVALID_VOLUME_RANGE_ERROR
 from .params import INVALID_FADE_IN_TYPE_ERROR, INVALID_FADE_IN_VALUE_ERROR, INVALID_FADE_IN_RANGE_ERROR
+from .params import INVALID_AUDIO_TYPE_ERROR, INVALID_AUDIO_DTYPE_ERROR
+from .params import INVALID_AUDIO_DIMENSION_ERROR, INVALID_AUDIO_EMPTY_ERROR
+from .params import INVALID_PLAY_SAMPLE_RATE_TYPE_ERROR, INVALID_PLAY_SAMPLE_RATE_VALUE_ERROR
+from .params import INVALID_LOOP_TYPE_ERROR
 
 def _validate_generate_noise(
     noise_type: Any,
@@ -62,6 +66,41 @@ def _validate_generate_noise(
 
     if fade_in > duration:
         raise ValueError(INVALID_FADE_IN_RANGE_ERROR)
+
+
+def _validate_play_noise(
+    audio: Any,
+    sample_rate: Any,
+    loop: Any,
+    ) -> None:
+    """
+    Validate play_noise inputs.
+
+    :param audio: PCM int16 numpy array
+    :param sample_rate: Sample rate in Hz
+    :param loop: Loop flag
+    """
+
+    if not isinstance(audio, np.ndarray):
+        raise ValueError(INVALID_AUDIO_TYPE_ERROR)
+
+    if audio.dtype != np.int16:
+        raise ValueError(INVALID_AUDIO_DTYPE_ERROR)
+
+    if audio.ndim != 1:
+        raise ValueError(INVALID_AUDIO_DIMENSION_ERROR)
+
+    if len(audio) == 0:
+        raise ValueError(INVALID_AUDIO_EMPTY_ERROR)
+
+    if not isinstance(sample_rate, int):
+        raise ValueError(INVALID_PLAY_SAMPLE_RATE_TYPE_ERROR)
+
+    if sample_rate <= 0:
+        raise ValueError(INVALID_PLAY_SAMPLE_RATE_VALUE_ERROR)
+
+    if not isinstance(loop, bool):
+        raise ValueError(INVALID_LOOP_TYPE_ERROR)
 
 
 def _generate_white_noise(samples: int) -> np.ndarray:
