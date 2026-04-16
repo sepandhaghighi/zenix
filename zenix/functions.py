@@ -198,7 +198,7 @@ def generate_noise(
     :param fade_in: Fade-in duration in seconds
     :return: PCM int16 array
     """
-    _validate_inputs(noise_type=noise_type, duration=duration, sample_rate=sample_rate, volume=volume, fade_in=fade_in)
+    _validate_generate_noise(noise_type=noise_type, duration=duration, sample_rate=sample_rate, volume=volume, fade_in=fade_in)
 
     samples = int(duration * sample_rate)
 
@@ -245,7 +245,7 @@ def play_noise(audio: np.ndarray, sample_rate: int = DEFAULT_SAMPLE_RATE, loop: 
     :param sample_rate: Sample rate
     :param loop: Loop flag
     """
-    _validate_play_inputs(audio=audio, sample_rate=sample_rate, loop=loop)
+    _validate_play_noise(audio=audio, sample_rate=sample_rate, loop=loop)
     with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
         filepath = tmp.name
     try:
