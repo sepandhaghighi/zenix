@@ -196,7 +196,12 @@ def generate_noise(
     :param fade_in: Fade-in duration in seconds
     :return: PCM int16 array
     """
-    _validate_generate_noise(noise_type=noise_type, duration=duration, sample_rate=sample_rate, volume=volume, fade_in=fade_in)
+    _validate_generate_noise(
+        noise_type=noise_type,
+        duration=duration,
+        sample_rate=sample_rate,
+        volume=volume,
+        fade_in=fade_in)
 
     samples = int(duration * sample_rate)
 
