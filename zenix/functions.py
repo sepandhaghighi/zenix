@@ -17,7 +17,6 @@ from .params import INVALID_VOLUME_TYPE_ERROR, INVALID_VOLUME_RANGE_ERROR
 from .params import INVALID_FADE_IN_TYPE_ERROR, INVALID_FADE_IN_VALUE_ERROR, INVALID_FADE_IN_RANGE_ERROR
 from .params import INVALID_AUDIO_TYPE_ERROR, INVALID_AUDIO_DTYPE_ERROR
 from .params import INVALID_AUDIO_DIMENSION_ERROR, INVALID_AUDIO_EMPTY_ERROR
-from .params import INVALID_PLAY_SAMPLE_RATE_TYPE_ERROR, INVALID_PLAY_SAMPLE_RATE_VALUE_ERROR
 from .params import INVALID_LOOP_TYPE_ERROR
 
 
@@ -93,10 +92,10 @@ def _validate_play_noise(
         raise ValueError(INVALID_AUDIO_EMPTY_ERROR)
 
     if not isinstance(sample_rate, int):
-        raise ValueError(INVALID_PLAY_SAMPLE_RATE_TYPE_ERROR)
+        raise ValueError(INVALID_SAMPLE_RATE_TYPE_ERROR)
 
     if sample_rate <= 0:
-        raise ValueError(INVALID_PLAY_SAMPLE_RATE_VALUE_ERROR)
+        raise ValueError(INVALID_SAMPLE_RATE_VALUE_ERROR)
 
     if not isinstance(loop, bool):
         raise ValueError(INVALID_LOOP_TYPE_ERROR)

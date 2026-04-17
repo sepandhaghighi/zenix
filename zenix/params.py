@@ -38,7 +38,4 @@ INVALID_AUDIO_DTYPE_ERROR = "`audio` must have dtype int16."
 INVALID_AUDIO_DIMENSION_ERROR = "`audio` must be a 1D array."
 INVALID_AUDIO_EMPTY_ERROR = "`audio` must not be empty."
 
-INVALID_PLAY_SAMPLE_RATE_TYPE_ERROR = "`sample_rate` must be int."
-INVALID_PLAY_SAMPLE_RATE_VALUE_ERROR = "`sample_rate` must be greater than 0."
-
 INVALID_LOOP_TYPE_ERROR = "`loop` must be bool."
