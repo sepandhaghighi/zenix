@@ -1,6 +1,5 @@
 import pytest
 import numpy as np
-from zenix import NoiseType
 from zenix import generate_noise, play_noise
 
 
