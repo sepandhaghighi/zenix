@@ -1,4 +1,5 @@
 <div align="center">
+<img src="https://github.com/sepandhaghighi/zenix/raw/logo/otherfiles/logo.png" width="350">
 <h1>Zenix: A Lightweight Tool for Procedural Noise Generation</h1>
 <br/>
 <a href="https://www.python.org/"><img src="https://img.shields.io/badge/built%20with-Python3-green.svg" alt="built with Python3"></a>
