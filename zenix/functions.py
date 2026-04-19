@@ -4,11 +4,101 @@
 import os
 import wave
 import tempfile
+from typing import Any
 import numpy as np
 from nava import play
 from .params import DEFAULT_SAMPLE_RATE, DEFAULT_DURATION
 from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN
 from .params import NoiseType
+from .params import INVALID_NOISE_TYPE_ERROR
+from .params import INVALID_DURATION_TYPE_ERROR, INVALID_DURATION_VALUE_ERROR
+from .params import INVALID_SAMPLE_RATE_TYPE_ERROR, INVALID_SAMPLE_RATE_VALUE_ERROR
+from .params import INVALID_VOLUME_TYPE_ERROR, INVALID_VOLUME_RANGE_ERROR
+from .params import INVALID_FADE_IN_TYPE_ERROR, INVALID_FADE_IN_VALUE_ERROR, INVALID_FADE_IN_RANGE_ERROR
+from .params import INVALID_AUDIO_TYPE_ERROR, INVALID_AUDIO_DTYPE_ERROR
+from .params import INVALID_AUDIO_DIMENSION_ERROR, INVALID_AUDIO_EMPTY_ERROR
+from .params import INVALID_LOOP_TYPE_ERROR
+
+
+def _validate_generate_noise(
+    noise_type: Any,
+    duration: Any,
+    sample_rate: Any,
+    volume: Any,
+    fade_in: Any,
+) -> None:
+    """
+    Validate generate_noise inputs.
+
+    :param noise_type: Noise type (NoiseType)
+    :param duration: Duration in seconds
+    :param sample_rate: Sample rate in Hz
+    :param volume: Volume (0.0 - 1.0)
+    :param fade_in: Fade-in duration in seconds
+    """
+    if not isinstance(noise_type, NoiseType):
+        raise ValueError(INVALID_NOISE_TYPE_ERROR)
+
+    if not isinstance(duration, (int, float)):
+        raise ValueError(INVALID_DURATION_TYPE_ERROR)
+
+    if duration <= 0:
+        raise ValueError(INVALID_DURATION_VALUE_ERROR)
+
+    if not isinstance(sample_rate, int):
+        raise ValueError(INVALID_SAMPLE_RATE_TYPE_ERROR)
+
+    if sample_rate <= 0:
+        raise ValueError(INVALID_SAMPLE_RATE_VALUE_ERROR)
+
+    if not isinstance(volume, (int, float)):
+        raise ValueError(INVALID_VOLUME_TYPE_ERROR)
+
+    if not (0.0 <= volume <= 1.0):
+        raise ValueError(INVALID_VOLUME_RANGE_ERROR)
+
+    if not isinstance(fade_in, (int, float)):
+        raise ValueError(INVALID_FADE_IN_TYPE_ERROR)
+
+    if fade_in < 0:
+        raise ValueError(INVALID_FADE_IN_VALUE_ERROR)
+
+    if fade_in > duration:
+        raise ValueError(INVALID_FADE_IN_RANGE_ERROR)
+
+
+def _validate_play_noise(
+    audio: Any,
+    sample_rate: Any,
+    loop: Any,
+) -> None:
+    """
+    Validate play_noise inputs.
+
+    :param audio: PCM int16 numpy array
+    :param sample_rate: Sample rate in Hz
+    :param loop: Loop flag
+    """
+    if not isinstance(audio, np.ndarray):
+        raise ValueError(INVALID_AUDIO_TYPE_ERROR)
+
+    if audio.dtype != np.int16:
+        raise ValueError(INVALID_AUDIO_DTYPE_ERROR)
+
+    if audio.ndim != 1:
+        raise ValueError(INVALID_AUDIO_DIMENSION_ERROR)
+
+    if len(audio) == 0:
+        raise ValueError(INVALID_AUDIO_EMPTY_ERROR)
+
+    if not isinstance(sample_rate, int):
+        raise ValueError(INVALID_SAMPLE_RATE_TYPE_ERROR)
+
+    if sample_rate <= 0:
+        raise ValueError(INVALID_SAMPLE_RATE_VALUE_ERROR)
+
+    if not isinstance(loop, bool):
+        raise ValueError(INVALID_LOOP_TYPE_ERROR)
 
 
 def _generate_white_noise(samples: int) -> np.ndarray:
@@ -105,6 +195,13 @@ def generate_noise(
     :param fade_in: Fade-in duration in seconds
     :return: PCM int16 array
     """
+    _validate_generate_noise(
+        noise_type=noise_type,
+        duration=duration,
+        sample_rate=sample_rate,
+        volume=volume,
+        fade_in=fade_in)
+
     samples = int(duration * sample_rate)
 
     if noise_type == NoiseType.WHITE:
@@ -150,6 +247,7 @@ def play_noise(audio: np.ndarray, sample_rate: int = DEFAULT_SAMPLE_RATE, loop: 
     :param sample_rate: Sample rate
     :param loop: Loop flag
     """
+    _validate_play_noise(audio=audio, sample_rate=sample_rate, loop=loop)
     with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
         filepath = tmp.name
     try:

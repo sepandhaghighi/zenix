@@ -45,7 +45,7 @@ def test_play_noise_calls_backend(monkeypatch):
 
     monkeypatch.setattr("zenix.functions.play", fake_play)
 
-    audio = generate_noise(duration=0.1)
+    audio = generate_noise(duration=5)
     play_noise(audio, loop=False)
 
     assert calls["count"] == 1
@@ -60,7 +60,7 @@ def test_play_noise_loop_break(monkeypatch):
 
     monkeypatch.setattr("zenix.functions.play", fake_play)
 
-    audio = generate_noise(duration=0.1)
+    audio = generate_noise(duration=5)
     play_noise(audio, loop=True)
 
     assert calls["count"] >= 1
