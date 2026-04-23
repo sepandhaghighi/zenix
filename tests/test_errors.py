@@ -70,7 +70,7 @@ def test_invalid_fade_out_value():
 
 def test_invalid_fade_out_range():
     with pytest.raises(ValueError, match="`fade_out` must not exceed `duration`."):
-        generate_noise(duration=1, fade_out=2)
+        generate_noise(duration=1, fade_out=2, fade_in=0.1)
 
 
 def test_invalid_audio_type():
