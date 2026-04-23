@@ -8,7 +8,7 @@ from typing import Any
 import numpy as np
 from nava import play
 from .params import DEFAULT_SAMPLE_RATE, DEFAULT_DURATION
-from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN
+from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN, DEFAULT_FADE_OUT
 from .params import NoiseType
 from .params import INVALID_NOISE_TYPE_ERROR
 from .params import INVALID_DURATION_TYPE_ERROR, INVALID_DURATION_VALUE_ERROR
