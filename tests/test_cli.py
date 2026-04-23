@@ -32,7 +32,7 @@ def test_cli_custom_params(monkeypatch):
     monkeypatch.setattr(
         sys,
         "argv",
-        ["zenix", "-t", "pink", "-d", "0.2", "-v", "0.5", "--fade-in", "0.05", "--sample-rate", "40000"],
+        ["zenix", "-t", "pink", "-d", "0.2", "-v", "0.5", "--fade-in", "0.05", "--fade-out", "0.05", "--sample-rate", "40000"],
     )
 
     with patch("zenix.cli.play_noise") as mock_play:

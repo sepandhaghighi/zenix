@@ -214,7 +214,8 @@ def generate_noise(
         duration=duration,
         sample_rate=sample_rate,
         volume=volume,
-        fade_in=fade_in)
+        fade_in=fade_in,
+        fade_out=fade_out)
 
     samples = int(duration * sample_rate)
 
