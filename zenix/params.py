@@ -33,6 +33,10 @@ INVALID_FADE_IN_TYPE_ERROR = "`fade_in` must be int or float."
 INVALID_FADE_IN_VALUE_ERROR = "`fade_in` must be greater than or equal to 0."
 INVALID_FADE_IN_RANGE_ERROR = "`fade_in` must not exceed `duration`."
 
+INVALID_FADE_OUT_TYPE_ERROR = "`fade_out` must be int or float."
+INVALID_FADE_OUT_VALUE_ERROR = "`fade_out` must be greater than or equal to 0."
+INVALID_FADE_OUT_RANGE_ERROR = "`fade_out` must not exceed `duration`."
+
 INVALID_AUDIO_TYPE_ERROR = "`audio` must be a numpy.ndarray."
 INVALID_AUDIO_DTYPE_ERROR = "`audio` must have dtype int16."
 INVALID_AUDIO_DIMENSION_ERROR = "`audio` must be a 1D array."
