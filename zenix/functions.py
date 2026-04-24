@@ -8,13 +8,14 @@ from typing import Any
 import numpy as np
 from nava import play
 from .params import DEFAULT_SAMPLE_RATE, DEFAULT_DURATION
-from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN
+from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN, DEFAULT_FADE_OUT
 from .params import NoiseType
 from .params import INVALID_NOISE_TYPE_ERROR
 from .params import INVALID_DURATION_TYPE_ERROR, INVALID_DURATION_VALUE_ERROR
 from .params import INVALID_SAMPLE_RATE_TYPE_ERROR, INVALID_SAMPLE_RATE_VALUE_ERROR
 from .params import INVALID_VOLUME_TYPE_ERROR, INVALID_VOLUME_RANGE_ERROR
 from .params import INVALID_FADE_IN_TYPE_ERROR, INVALID_FADE_IN_VALUE_ERROR, INVALID_FADE_IN_RANGE_ERROR
+from .params import INVALID_FADE_OUT_TYPE_ERROR, INVALID_FADE_OUT_VALUE_ERROR, INVALID_FADE_OUT_RANGE_ERROR
 from .params import INVALID_AUDIO_TYPE_ERROR, INVALID_AUDIO_DTYPE_ERROR
 from .params import INVALID_AUDIO_DIMENSION_ERROR, INVALID_AUDIO_EMPTY_ERROR
 from .params import INVALID_LOOP_TYPE_ERROR
@@ -26,6 +27,7 @@ def _validate_generate_noise(
     sample_rate: Any,
     volume: Any,
     fade_in: Any,
+    fade_out: Any,
 ) -> None:
     """
     Validate generate_noise inputs.
@@ -35,6 +37,7 @@ def _validate_generate_noise(
     :param sample_rate: Sample rate in Hz
     :param volume: Volume (0.0 - 1.0)
     :param fade_in: Fade-in duration in seconds
+    :param fade_out: Fade-out duration in seconds
     """
     if not isinstance(noise_type, NoiseType):
         raise ValueError(INVALID_NOISE_TYPE_ERROR)
@@ -65,6 +68,15 @@ def _validate_generate_noise(
 
     if fade_in > duration:
         raise ValueError(INVALID_FADE_IN_RANGE_ERROR)
+    
+    if not isinstance(fade_out, (int, float)):
+        raise ValueError(INVALID_FADE_OUT_TYPE_ERROR)
+
+    if fade_out < 0:
+        raise ValueError(INVALID_FADE_OUT_VALUE_ERROR)
+
+    if fade_out > duration:
+        raise ValueError(INVALID_FADE_OUT_RANGE_ERROR)
 
 
 def _validate_play_noise(
@@ -183,7 +195,8 @@ def generate_noise(
     duration: float = DEFAULT_DURATION,
     sample_rate: int = DEFAULT_SAMPLE_RATE,
     volume: float = DEFAULT_VOLUME,
-    fade_in: float = DEFAULT_FADE_IN
+    fade_in: float = DEFAULT_FADE_IN,
+    fade_out: float = DEFAULT_FADE_OUT
 ) -> np.ndarray:
     """
     Generate selected noise type with fade-in and smoothing.
@@ -193,6 +206,7 @@ def generate_noise(
     :param sample_rate: Sample rate
     :param volume: Volume multiplier
     :param fade_in: Fade-in duration in seconds
+    :param fade_out: Fade-out duration in seconds
     :return: PCM int16 array
     """
     _validate_generate_noise(
@@ -200,7 +214,8 @@ def generate_noise(
         duration=duration,
         sample_rate=sample_rate,
         volume=volume,
-        fade_in=fade_in)
+        fade_in=fade_in,
+        fade_out=fade_out)
 
     samples = int(duration * sample_rate)
 
@@ -217,7 +232,7 @@ def generate_noise(
 
     _apply_fade_in(audio, sample_rate, fade_in)
 
-    _apply_fade_out(audio, sample_rate, 1.0)
+    _apply_fade_out(audio, sample_rate, fade_out)
 
     audio *= volume
 

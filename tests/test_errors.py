@@ -58,6 +58,21 @@ def test_invalid_fade_in_range():
         generate_noise(duration=1, fade_in=2)
 
 
+def test_invalid_fade_out_type():
+    with pytest.raises(ValueError, match="`fade_out` must be int or float."):
+        generate_noise(fade_out="2")
+
+
+def test_invalid_fade_out_value():
+    with pytest.raises(ValueError, match="`fade_out` must be greater than or equal to 0."):
+        generate_noise(fade_out=-1)
+
+
+def test_invalid_fade_out_range():
+    with pytest.raises(ValueError, match="`fade_out` must not exceed `duration`."):
+        generate_noise(duration=1, fade_out=2, fade_in=0.1)
+
+
 def test_invalid_audio_type():
     with pytest.raises(ValueError, match="`audio` must be a numpy.ndarray."):
         play_noise(audio="not-array")

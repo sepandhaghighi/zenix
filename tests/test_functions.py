@@ -17,6 +17,7 @@ def test_generate_noise_all_types(noise_type):
         sample_rate=sample_rate,
         volume=1.0,
         fade_in=0.1,
+        fade_out=0.1,
     )
 
     assert isinstance(audio, np.ndarray)

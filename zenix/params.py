@@ -17,6 +17,7 @@ DEFAULT_SAMPLE_RATE = 44100
 DEFAULT_DURATION = 30.0
 DEFAULT_VOLUME = 0.3
 DEFAULT_FADE_IN = 2.0
+DEFAULT_FADE_OUT = 2.0
 
 INVALID_NOISE_TYPE_ERROR = "`noise_type` must be an instance of NoiseType."
 
@@ -32,6 +33,10 @@ INVALID_VOLUME_RANGE_ERROR = "`volume` must be between 0.0 and 1.0."
 INVALID_FADE_IN_TYPE_ERROR = "`fade_in` must be int or float."
 INVALID_FADE_IN_VALUE_ERROR = "`fade_in` must be greater than or equal to 0."
 INVALID_FADE_IN_RANGE_ERROR = "`fade_in` must not exceed `duration`."
+
+INVALID_FADE_OUT_TYPE_ERROR = "`fade_out` must be int or float."
+INVALID_FADE_OUT_VALUE_ERROR = "`fade_out` must be greater than or equal to 0."
+INVALID_FADE_OUT_RANGE_ERROR = "`fade_out` must not exceed `duration`."
 
 INVALID_AUDIO_TYPE_ERROR = "`audio` must be a numpy.ndarray."
 INVALID_AUDIO_DTYPE_ERROR = "`audio` must have dtype int16."

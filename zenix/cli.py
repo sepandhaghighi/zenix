@@ -4,7 +4,7 @@
 import argparse
 import sys
 from .params import DEFAULT_SAMPLE_RATE, DEFAULT_DURATION
-from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN
+from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN, DEFAULT_FADE_OUT
 from .params import ZENIX_VERSION, NoiseType
 from .functions import generate_noise, play_noise
 
@@ -54,6 +54,13 @@ def _parse_args() -> argparse.Namespace:
     )
 
     parser.add_argument(
+        "--fade-out",
+        type=float,
+        default=DEFAULT_FADE_OUT,
+        help="Fade-out duration in seconds"
+    )
+
+    parser.add_argument(
         "--sample-rate",
         type=int,
         default=DEFAULT_SAMPLE_RATE,
@@ -86,6 +93,7 @@ def _run(args: argparse.Namespace) -> None:
             sample_rate=args.sample_rate,
             volume=args.volume,
             fade_in=args.fade_in,
+            fade_out=args.fade_out
         )
         play_noise(
             audio=audio,
