@@ -36,7 +36,7 @@ def read_description() -> str:
 setup(
     name='zenix',
     packages=['zenix'],
-    version='0.3',
+    version='0.4',
     description='Zenix: A Lightweight Tool for Procedural Noise Generation',
     long_description=read_description(),
     long_description_content_type='text/markdown',
@@ -44,7 +44,7 @@ setup(
     author='Sepand Haghighi',
     author_email='me@sepand.tech',
     url='https://github.com/sepandhaghighi/zenix',
-    download_url='https://github.com/sepandhaghighi/zenix/tarball/v0.3',
+    download_url='https://github.com/sepandhaghighi/zenix/tarball/v0.4',
     keywords="noise white-noise pink-noise brown-noise audio sound dsp signal-processing cli productivity focus relaxation numpy",
     project_urls={
         'Source': 'https://github.com/sepandhaghighi/zenix'},
