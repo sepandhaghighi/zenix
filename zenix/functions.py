@@ -20,6 +20,33 @@ from .params import INVALID_AUDIO_TYPE_ERROR, INVALID_AUDIO_DTYPE_ERROR
 from .params import INVALID_AUDIO_DIMENSION_ERROR, INVALID_AUDIO_EMPTY_ERROR
 from .params import INVALID_LOOP_TYPE_ERROR
 
+def _validate_audio_buffer(
+    audio: Any,
+    sample_rate: Any,
+) -> None:
+    """
+    Validate PCM int16 mono audio buffer.
+
+    :param audio: PCM int16 numpy array
+    :param sample_rate: Sample rate in Hz
+    """
+    if not isinstance(audio, np.ndarray):
+        raise ValueError(INVALID_AUDIO_TYPE_ERROR)
+
+    if audio.dtype != np.int16:
+        raise ValueError(INVALID_AUDIO_DTYPE_ERROR)
+
+    if audio.ndim != 1:
+        raise ValueError(INVALID_AUDIO_DIMENSION_ERROR)
+
+    if len(audio) == 0:
+        raise ValueError(INVALID_AUDIO_EMPTY_ERROR)
+
+    if not isinstance(sample_rate, int):
+        raise ValueError(INVALID_SAMPLE_RATE_TYPE_ERROR)
+
+    if sample_rate <= 0:
+        raise ValueError(INVALID_SAMPLE_RATE_VALUE_ERROR)
 
 def _validate_generate_noise(
     noise_type: Any,
