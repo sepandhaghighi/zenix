@@ -20,6 +20,7 @@ from .params import INVALID_AUDIO_TYPE_ERROR, INVALID_AUDIO_DTYPE_ERROR
 from .params import INVALID_AUDIO_DIMENSION_ERROR, INVALID_AUDIO_EMPTY_ERROR
 from .params import INVALID_LOOP_TYPE_ERROR
 
+
 def _validate_audio_buffer(
     audio: Any,
     sample_rate: Any,
@@ -47,6 +48,7 @@ def _validate_audio_buffer(
 
     if sample_rate <= 0:
         raise ValueError(INVALID_SAMPLE_RATE_VALUE_ERROR)
+
 
 def _validate_generate_noise(
     noise_type: Any,
@@ -95,7 +97,7 @@ def _validate_generate_noise(
 
     if fade_in > duration:
         raise ValueError(INVALID_FADE_IN_RANGE_ERROR)
-    
+
     if not isinstance(fade_out, (int, float)):
         raise ValueError(INVALID_FADE_OUT_TYPE_ERROR)
 
