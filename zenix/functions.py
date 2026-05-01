@@ -67,6 +67,7 @@ def _validate_save_noise(
     if not isinstance(filepath, str) or not filepath:
         raise ValueError(INVALID_FILEPATH_ERROR)
 
+
 def _validate_generate_noise(
     noise_type: Any,
     duration: Any,
