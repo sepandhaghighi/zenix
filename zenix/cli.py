@@ -6,7 +6,7 @@ import sys
 from .params import DEFAULT_SAMPLE_RATE, DEFAULT_DURATION
 from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN, DEFAULT_FADE_OUT
 from .params import ZENIX_VERSION, NoiseType
-from .functions import generate_noise, play_noise
+from .functions import generate_noise, play_noise, save_noise
 
 
 def _parse_args() -> argparse.Namespace:
