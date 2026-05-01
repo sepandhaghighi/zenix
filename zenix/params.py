@@ -44,3 +44,5 @@ INVALID_AUDIO_DIMENSION_ERROR = "`audio` must be a 1D array."
 INVALID_AUDIO_EMPTY_ERROR = "`audio` must not be empty."
 
 INVALID_LOOP_TYPE_ERROR = "`loop` must be bool."
+
+INVALID_FILEPATH_ERROR = "`filepath` must be a non-empty string."

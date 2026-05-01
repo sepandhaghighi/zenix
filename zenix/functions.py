@@ -18,7 +18,7 @@ from .params import INVALID_FADE_IN_TYPE_ERROR, INVALID_FADE_IN_VALUE_ERROR, INV
 from .params import INVALID_FADE_OUT_TYPE_ERROR, INVALID_FADE_OUT_VALUE_ERROR, INVALID_FADE_OUT_RANGE_ERROR
 from .params import INVALID_AUDIO_TYPE_ERROR, INVALID_AUDIO_DTYPE_ERROR
 from .params import INVALID_AUDIO_DIMENSION_ERROR, INVALID_AUDIO_EMPTY_ERROR
-from .params import INVALID_LOOP_TYPE_ERROR
+from .params import INVALID_LOOP_TYPE_ERROR, INVALID_FILEPATH_ERROR
 
 
 def _validate_audio_buffer(
@@ -49,6 +49,23 @@ def _validate_audio_buffer(
     if sample_rate <= 0:
         raise ValueError(INVALID_SAMPLE_RATE_VALUE_ERROR)
 
+
+def _validate_save_noise(
+    filepath: Any,
+    audio: Any,
+    sample_rate: Any,
+) -> None:
+    """
+    Validate save_noise inputs.
+
+    :param filepath: Output file path
+    :param audio: PCM int16 numpy array
+    :param sample_rate: Sample rate in Hz
+    """
+
+    _validate_audio_buffer(audio=audio, sample_rate=sample_rate)
+    if not isinstance(filepath, str) or not filepath:
+        raise ValueError(INVALID_FILEPATH_ERROR)
 
 def _validate_generate_noise(
     noise_type: Any,
