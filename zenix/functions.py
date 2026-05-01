@@ -307,3 +307,19 @@ def play_noise(audio: np.ndarray, sample_rate: int = DEFAULT_SAMPLE_RATE, loop: 
     finally:
         if os.path.exists(filepath):
             os.remove(filepath)
+
+
+def save_noise(
+    filepath: str,
+    audio: np.ndarray,
+    sample_rate: int = DEFAULT_SAMPLE_RATE
+) -> None:
+    """
+    Save noise to WAV file.
+
+    :param filepath: Output file path
+    :param audio: PCM int16 array
+    :param sample_rate: Sample rate
+    """
+    _validate_save_noise(audio=audio, sample_rate=sample_rate)
+    _write_wav(filepath, audio, sample_rate)
