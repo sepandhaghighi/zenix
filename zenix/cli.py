@@ -73,6 +73,12 @@ def _parse_args() -> argparse.Namespace:
         help="Loop playback"
     )
 
+    parser.add_argument(
+        "-o", "--output",
+        type=str,
+        help="Save noise to WAV file"
+    )
+
     return parser.parse_args()
 
 
@@ -86,7 +92,6 @@ def _run(args: argparse.Namespace) -> None:
         print(ZENIX_VERSION)
         return
     try:
-        print(f"Playing {args.type} noise...\nPress Ctrl+C to stop.")
         audio = generate_noise(
             noise_type=NoiseType(args.type),
             duration=args.duration,
@@ -95,6 +100,14 @@ def _run(args: argparse.Namespace) -> None:
             fade_in=args.fade_in,
             fade_out=args.fade_out
         )
+        if args.output:
+            print(f"Saving {args.type} noise to {args.output}...")
+            save_noise(
+                filepath=args.output,
+                audio=audio,
+                sample_rate=args.sample_rate
+            )
+        print(f"Playing {args.type} noise...\nPress Ctrl+C to stop.")
         play_noise(
             audio=audio,
             sample_rate=args.sample_rate,
