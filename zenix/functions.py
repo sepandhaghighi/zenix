@@ -322,5 +322,5 @@ def save_noise(
     :param audio: PCM int16 array
     :param sample_rate: Sample rate
     """
-    _validate_save_noise(audio=audio, sample_rate=sample_rate)
+    _validate_save_noise(filepath=filepath, audio=audio, sample_rate=sample_rate)
     _write_wav(filepath, audio, sample_rate)
