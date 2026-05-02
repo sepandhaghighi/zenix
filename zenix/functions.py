@@ -62,7 +62,6 @@ def _validate_save_noise(
     :param audio: PCM int16 numpy array
     :param sample_rate: Sample rate in Hz
     """
-
     _validate_audio_buffer(audio=audio, sample_rate=sample_rate)
     if not isinstance(filepath, str) or not filepath:
         raise ValueError(INVALID_FILEPATH_ERROR)
