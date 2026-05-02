@@ -71,7 +71,7 @@ def test_play_noise_loop_break(monkeypatch):
 def test_save_noise_creates_file(tmp_path):
     filepath = tmp_path / "test.wav"
 
-    audio = generate_noise(duration=0.1)
+    audio = generate_noise(duration=5)
     save_noise(str(filepath), audio)
 
     assert filepath.exists()
@@ -81,7 +81,7 @@ def test_save_noise_creates_file(tmp_path):
 def test_generate_and_save_pipeline(tmp_path):
     filepath = tmp_path / "pipeline.wav"
 
-    duration = 0.2
+    duration = 5
     sample_rate = 8000
 
     audio = generate_noise(duration=duration, sample_rate=sample_rate)
@@ -100,7 +100,7 @@ def test_generate_and_save_pipeline(tmp_path):
 def test_save_noise_all_types(tmp_path, noise_type):
     filepath = tmp_path / f"{noise_type.value}.wav"
 
-    audio = generate_noise(noise_type=noise_type, duration=0.1)
+    audio = generate_noise(noise_type=noise_type, duration=5)
     save_noise(str(filepath), audio)
 
     assert filepath.exists()
@@ -109,7 +109,7 @@ def test_save_noise_all_types(tmp_path, noise_type):
 def test_save_preserves_audio_amplitude(tmp_path):
     filepath = tmp_path / "amp.wav"
 
-    audio = generate_noise(volume=1.0, duration=0.1)
+    audio = generate_noise(volume=1.0, duration=5)
     save_noise(str(filepath), audio)
 
     with wave.open(str(filepath), "rb") as wf:
@@ -123,8 +123,8 @@ def test_save_preserves_audio_amplitude(tmp_path):
 def test_save_noise_overwrite(tmp_path):
     filepath = tmp_path / "overwrite.wav"
 
-    audio1 = generate_noise(duration=0.1)
-    audio2 = generate_noise(duration=0.2)
+    audio1 = generate_noise(duration=5)
+    audio2 = generate_noise(duration=5)
 
     save_noise(str(filepath), audio1)
     size1 = filepath.stat().st_size
@@ -138,7 +138,7 @@ def test_save_noise_overwrite(tmp_path):
 def test_save_does_not_modify_audio(tmp_path):
     filepath = tmp_path / "immutability.wav"
 
-    audio = generate_noise(duration=0.1)
+    audio = generate_noise(duration=5)
     original = audio.copy()
 
     save_noise(str(filepath), audio)
