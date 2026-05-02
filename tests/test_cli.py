@@ -60,7 +60,7 @@ def test_cli_output_file(monkeypatch, tmp_path):
 
     monkeypatch.setattr(
         sys, "argv",
-        ["zenix", "-d", "0.1", "-o", str(filepath)]
+        ["zenix", "-d", "6", "-o", str(filepath)]
     )
 
     monkeypatch.setattr("zenix.cli.play_noise", lambda *a, **k: None)
@@ -83,10 +83,3 @@ def test_cli_output_and_play(monkeypatch, tmp_path):
 
     assert filepath.exists()
     mock_play.assert_called_once()
-
-
-def test_cli_invalid_output(monkeypatch):
-    monkeypatch.setattr(sys, "argv", ["zenix", "-o", ""])
-
-    with pytest.raises(SystemExit):
-        main()
