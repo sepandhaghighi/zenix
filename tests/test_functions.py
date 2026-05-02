@@ -124,7 +124,7 @@ def test_save_noise_overwrite(tmp_path):
     filepath = tmp_path / "overwrite.wav"
 
     audio1 = generate_noise(duration=5)
-    audio2 = generate_noise(duration=5)
+    audio2 = generate_noise(duration=6)
 
     save_noise(str(filepath), audio1)
     size1 = filepath.stat().st_size
