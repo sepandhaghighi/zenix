@@ -53,3 +53,33 @@ def test_cli_invalid_volume(monkeypatch):
     monkeypatch.setattr(sys, "argv", ["zenix", "-v", "2.0"])
     with pytest.raises(SystemExit):
         main()
+
+
+def test_cli_output_file(monkeypatch, tmp_path):
+    filepath = tmp_path / "cli.wav"
+
+    monkeypatch.setattr(
+        sys, "argv",
+        ["zenix", "-d", "6", "-o", str(filepath)]
+    )
+
+    monkeypatch.setattr("zenix.cli.play_noise", lambda *a, **k: None)
+
+    main()
+
+    assert filepath.exists()
+
+
+def test_cli_output_and_play(monkeypatch, tmp_path):
+    filepath = tmp_path / "cli.wav"
+
+    monkeypatch.setattr(
+        sys, "argv",
+        ["zenix", "-o", str(filepath)]
+    )
+
+    with patch("zenix.cli.play_noise") as mock_play:
+        main()
+
+    assert filepath.exists()
+    mock_play.assert_called_once()

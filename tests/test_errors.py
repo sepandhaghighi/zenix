@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from zenix import generate_noise, play_noise
+from zenix import generate_noise, play_noise, save_noise
 
 
 def test_invalid_noise_type():
@@ -112,3 +112,9 @@ def test_invalid_loop_type():
     audio = np.zeros(100, dtype=np.int16)
     with pytest.raises(ValueError, match="`loop` must be bool."):
         play_noise(audio=audio, loop="yes")
+
+
+def test_invalid_filepath():
+    audio = np.zeros(100, dtype=np.int16)
+    with pytest.raises(ValueError):
+        save_noise("", audio)
