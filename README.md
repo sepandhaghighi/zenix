@@ -85,7 +85,7 @@ zenix --type=white --duration=120 --volume=0.25 --fade-in=2 --fade-out=3 --sampl
 ### Library
 
 ```python
-from zenix import generate_noise, play_noise, NoiseType
+from zenix import generate_noise, play_noise, save_noise, NoiseType
 audio = generate_noise(
         noise_type=NoiseType.WHITE,
         duration=120,
@@ -94,6 +94,7 @@ audio = generate_noise(
         fade_in=2,
 		fade_out=2
     )
+save_noise("noise.wav", audio, sample_rate=44000)
 play_noise(audio=audio, sample_rate=44000, loop=True)
 ```
 
