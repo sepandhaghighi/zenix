@@ -65,7 +65,7 @@ Zenix is a lightweight tool for generating procedural noise such as white, pink,
 ### CLI
 
 ```bash
-zenix --type=white --duration=120 --volume=0.25 --fade-in=2 --fade-out=3 --sample-rate=44000 --loop
+zenix --type=white --duration=120 --volume=0.25 --fade-in=2 --fade-out=3 --sample-rate=44000 --loop --output=noise.wav
 ```
 
 #### Arguments
@@ -79,12 +79,13 @@ zenix --type=white --duration=120 --volume=0.25 --fade-in=2 --fade-out=3 --sampl
 | `--fade-out` | Fade-out duration in seconds | `2` |
 | `--sample-rate` | Audio sample rate in Hz | `44100` |
 | `--loop` | Enable continuous looping playback | `False` |
+| `--output` | Save generated noise to WAV file | `None` |
 
 
 ### Library
 
 ```python
-from zenix import generate_noise, play_noise, NoiseType
+from zenix import generate_noise, play_noise, save_noise, NoiseType
 audio = generate_noise(
         noise_type=NoiseType.WHITE,
         duration=120,
@@ -93,6 +94,7 @@ audio = generate_noise(
         fade_in=2,
 		fade_out=2
     )
+save_noise("noise.wav", audio, sample_rate=44000)
 play_noise(audio=audio, sample_rate=44000, loop=True)
 ```
 

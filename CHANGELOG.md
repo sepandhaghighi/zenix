@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Validation system modified
 - Test system modified
+- `README.md` updated
 ## [0.4] - 2026-04-26
 ### Added
 - `fade_out` parameter
