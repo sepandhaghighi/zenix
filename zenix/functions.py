@@ -16,8 +16,7 @@ from .params import INVALID_SAMPLE_RATE_ERROR
 from .params import INVALID_VOLUME_ERROR
 from .params import INVALID_FADE_IN_ERROR
 from .params import INVALID_FADE_OUT_ERROR
-from .params import INVALID_AUDIO_TYPE_ERROR, INVALID_AUDIO_DTYPE_ERROR
-from .params import INVALID_AUDIO_DIMENSION_ERROR, INVALID_AUDIO_EMPTY_ERROR
+from .params import INVALID_AUDIO_ERROR
 from .params import INVALID_LOOP_TYPE_ERROR, INVALID_FILEPATH_ERROR
 
 
@@ -32,16 +31,16 @@ def _validate_audio_buffer(
     :param sample_rate: Sample rate in Hz
     """
     if not isinstance(audio, np.ndarray):
-        raise ValueError(INVALID_AUDIO_TYPE_ERROR)
+        raise ValueError(INVALID_AUDIO_ERROR)
 
     if audio.dtype != np.int16:
-        raise ValueError(INVALID_AUDIO_DTYPE_ERROR)
+        raise ValueError(INVALID_AUDIO_ERROR)
 
     if audio.ndim != 1:
-        raise ValueError(INVALID_AUDIO_DIMENSION_ERROR)
+        raise ValueError(INVALID_AUDIO_ERROR)
 
     if len(audio) == 0:
-        raise ValueError(INVALID_AUDIO_EMPTY_ERROR)
+        raise ValueError(INVALID_AUDIO_ERROR)
 
     if not isinstance(sample_rate, int):
         raise ValueError(INVALID_SAMPLE_RATE_ERROR)

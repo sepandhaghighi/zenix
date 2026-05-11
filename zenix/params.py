@@ -31,10 +31,7 @@ INVALID_FADE_IN_ERROR = "`fade_in` must be a non-negative number not exceeding `
 
 INVALID_FADE_OUT_ERROR = "`fade_out` must be a non-negative number not exceeding `duration`."
 
-INVALID_AUDIO_TYPE_ERROR = "`audio` must be a numpy.ndarray."
-INVALID_AUDIO_DTYPE_ERROR = "`audio` must have dtype int16."
-INVALID_AUDIO_DIMENSION_ERROR = "`audio` must be a 1D array."
-INVALID_AUDIO_EMPTY_ERROR = "`audio` must not be empty."
+INVALID_AUDIO_ERROR = "`audio` must be a non-empty 1D numpy.ndarray with dtype int16."
 
 INVALID_LOOP_TYPE_ERROR = "`loop` must be bool."
 
