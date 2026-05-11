@@ -25,8 +25,7 @@ INVALID_DURATION_ERROR = "`duration` must be a number greater than 0."
 
 INVALID_SAMPLE_RATE_ERROR = "`sample_rate` must be a positive integer."
 
-INVALID_VOLUME_TYPE_ERROR = "`volume` must be int or float."
-INVALID_VOLUME_RANGE_ERROR = "`volume` must be between 0.0 and 1.0."
+INVALID_VOLUME_ERROR = "`volume` must be a number between 0.0 and 1.0."
 
 INVALID_FADE_IN_TYPE_ERROR = "`fade_in` must be int or float."
 INVALID_FADE_IN_VALUE_ERROR = "`fade_in` must be greater than or equal to 0."
