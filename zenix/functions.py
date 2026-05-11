@@ -11,7 +11,7 @@ from .params import DEFAULT_SAMPLE_RATE, DEFAULT_DURATION
 from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN, DEFAULT_FADE_OUT
 from .params import NoiseType
 from .params import INVALID_NOISE_TYPE_ERROR
-from .params import INVALID_DURATION_TYPE_ERROR, INVALID_DURATION_VALUE_ERROR
+from .params import INVALID_DURATION_ERROR
 from .params import INVALID_SAMPLE_RATE_TYPE_ERROR, INVALID_SAMPLE_RATE_VALUE_ERROR
 from .params import INVALID_VOLUME_TYPE_ERROR, INVALID_VOLUME_RANGE_ERROR
 from .params import INVALID_FADE_IN_TYPE_ERROR, INVALID_FADE_IN_VALUE_ERROR, INVALID_FADE_IN_RANGE_ERROR
@@ -89,10 +89,10 @@ def _validate_generate_noise(
         raise ValueError(INVALID_NOISE_TYPE_ERROR)
 
     if not isinstance(duration, (int, float)):
-        raise ValueError(INVALID_DURATION_TYPE_ERROR)
+        raise ValueError(INVALID_DURATION_ERROR)
 
     if duration <= 0:
-        raise ValueError(INVALID_DURATION_VALUE_ERROR)
+        raise ValueError(INVALID_DURATION_ERROR)
 
     if not isinstance(sample_rate, int):
         raise ValueError(INVALID_SAMPLE_RATE_TYPE_ERROR)

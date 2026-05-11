@@ -21,8 +21,7 @@ DEFAULT_FADE_OUT = 2.0
 
 INVALID_NOISE_TYPE_ERROR = "`noise_type` must be an instance of NoiseType."
 
-INVALID_DURATION_TYPE_ERROR = "`duration` must be int or float."
-INVALID_DURATION_VALUE_ERROR = "`duration` must be greater than 0."
+INVALID_DURATION_ERROR = "`duration` must be a number greater than 0."
 
 INVALID_SAMPLE_RATE_TYPE_ERROR = "`sample_rate` must be int."
 INVALID_SAMPLE_RATE_VALUE_ERROR = "`sample_rate` must be greater than 0."
