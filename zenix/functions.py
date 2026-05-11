@@ -15,7 +15,7 @@ from .params import INVALID_DURATION_ERROR
 from .params import INVALID_SAMPLE_RATE_ERROR
 from .params import INVALID_VOLUME_ERROR
 from .params import INVALID_FADE_IN_ERROR
-from .params import INVALID_FADE_OUT_TYPE_ERROR, INVALID_FADE_OUT_VALUE_ERROR, INVALID_FADE_OUT_RANGE_ERROR
+from .params import INVALID_FADE_OUT_ERROR
 from .params import INVALID_AUDIO_TYPE_ERROR, INVALID_AUDIO_DTYPE_ERROR
 from .params import INVALID_AUDIO_DIMENSION_ERROR, INVALID_AUDIO_EMPTY_ERROR
 from .params import INVALID_LOOP_TYPE_ERROR, INVALID_FILEPATH_ERROR
@@ -116,13 +116,13 @@ def _validate_generate_noise(
         raise ValueError(INVALID_FADE_IN_ERROR)
 
     if not isinstance(fade_out, (int, float)):
-        raise ValueError(INVALID_FADE_OUT_TYPE_ERROR)
+        raise ValueError(INVALID_FADE_OUT_ERROR)
 
     if fade_out < 0:
-        raise ValueError(INVALID_FADE_OUT_VALUE_ERROR)
+        raise ValueError(INVALID_FADE_OUT_ERROR)
 
     if fade_out > duration:
-        raise ValueError(INVALID_FADE_OUT_RANGE_ERROR)
+        raise ValueError(INVALID_FADE_OUT_ERROR)
 
 
 def _validate_play_noise(
