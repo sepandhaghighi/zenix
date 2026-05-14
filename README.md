@@ -100,14 +100,14 @@ audio = generate_noise(
     )
 ```
 
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `noise_type` | Noise type | `NoiseType.WHITE` |
-| `duration` | Duration of generated noise in seconds | `30` |
-| `sample_rate` | Audio sample rate in Hz | `44100` |
-| `volume` | Output volume multiplier | `0.3` |
-| `fade_in` | Fade-in duration in seconds | `2` |
-| `fade_out` | Fade-out duration in seconds | `2` |
+| Parameter | Type | Description | Default |
+|-----------|------|-------------|---------|
+| `noise_type` | `NoiseType` | Noise type | `NoiseType.WHITE` |
+| `duration` | `float` | Duration of generated noise in seconds | `30` |
+| `sample_rate` | `int` | Audio sample rate in Hz | `44100` |
+| `volume` | `float` | Output volume multiplier (`0.0 - 1.0`) | `0.3` |
+| `fade_in` | `float` | Fade-in duration in seconds | `2` |
+| `fade_out` | `float` | Fade-out duration in seconds | `2` |
 
 
 #### Play Noise
