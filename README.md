@@ -105,7 +105,7 @@ audio = generate_noise(
 | `noise_type` | `NoiseType` | Noise type | `NoiseType.WHITE` |
 | `duration` | `float` | Duration of generated noise in seconds | `30` |
 | `sample_rate` | `int` | Audio sample rate in Hz | `44100` |
-| `volume` | `float` | Output volume multiplier (`0.0 - 1.0`) | `0.3` |
+| `volume` | `float` | Output volume multiplier | `0.3` |
 | `fade_in` | `float` | Fade-in duration in seconds | `2` |
 | `fade_out` | `float` | Fade-out duration in seconds | `2` |
 
