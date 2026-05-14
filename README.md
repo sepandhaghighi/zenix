@@ -84,6 +84,10 @@ zenix --type=white --duration=120 --volume=0.25 --fade-in=2 --fade-out=3 --sampl
 
 ### Library
 
+#### Generate Noise
+
+Generate procedural noise as a PCM `int16` NumPy array.
+
 ```python
 from zenix import generate_noise, play_noise, save_noise, NoiseType
 audio = generate_noise(
@@ -94,11 +98,7 @@ audio = generate_noise(
         fade_in=2,
 		fade_out=2
     )
-save_noise("noise.wav", audio, sample_rate=44000)
-play_noise(audio=audio, sample_rate=44000, loop=True)
 ```
-
-#### Parameters
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
@@ -108,6 +108,52 @@ play_noise(audio=audio, sample_rate=44000, loop=True)
 | `volume` | Output volume multiplier | `0.3` |
 | `fade_in` | Fade-in duration in seconds | `2` |
 | `fade_out` | Fade-out duration in seconds | `2` |
+
+
+#### Play Noise
+
+Play generated noise directly from memory.
+
+```python
+from zenix import generate_noise, play_noise
+
+audio = generate_noise(duration=30)
+
+play_noise(
+    audio=audio,
+    sample_rate=44100,
+    loop=False
+)
+```
+
+| Parameter | Type | Description | Default |
+|-----------|------|-------------|---------|
+| `audio` | `numpy.ndarray` | PCM mono audio buffer (`int16`) | **Required** |
+| `sample_rate` | `int` | Audio sample rate in Hz | `44100` |
+| `loop` | `bool` | Enable continuous looping playback | `False` |
+
+#### Save Noise
+
+Save generated noise to a WAV file.
+
+```python
+from zenix import generate_noise, save_noise
+
+audio = generate_noise(duration=60)
+
+save_noise(
+    filepath="noise.wav",
+    audio=audio,
+    sample_rate=44100
+)
+```
+
+| Parameter | Type | Description | Default |
+|-----------|------|-------------|---------|
+| `filepath` | `str` | Output WAV file path | **Required** |
+| `audio` | `numpy.ndarray` | PCM mono audio buffer (`int16`) | **Required** |
+| `sample_rate` | `int` | Audio sample rate in Hz | `44100` |
+
 
 ## Issues & Bug Reports			
 
