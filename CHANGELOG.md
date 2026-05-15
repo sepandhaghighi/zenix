@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Changed
 - Error messages updated
+- Test system modified
+- `README.md` updated
 ## [0.5] - 2026-05-05
 ### Added
 - `save_noise` function
