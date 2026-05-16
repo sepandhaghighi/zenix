@@ -265,6 +265,8 @@ def generate_noise(
         audio = _generate_pink_noise(samples)
     elif noise_type == NoiseType.BROWN:
         audio = _generate_brown_noise(samples)
+    elif noise_type == NoiseType.BLUE:
+        audio = _generate_blue_noise(samples)
     else:
         raise ValueError("Unsupported noise type")
 
