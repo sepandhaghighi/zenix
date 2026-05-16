@@ -11,6 +11,7 @@ class NoiseType(Enum):
     WHITE = "white"
     PINK = "pink"
     BROWN = "brown"
+    BLUE = "blue"
 
 
 DEFAULT_SAMPLE_RATE = 44100
