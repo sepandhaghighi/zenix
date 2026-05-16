@@ -241,7 +241,7 @@ def generate_noise(
     """
     Generate selected noise type with fade-in and smoothing.
 
-    :param noise_type: white | pink | brown
+    :param noise_type: white | pink | brown | blue
     :param duration: Duration in seconds
     :param sample_rate: Sample rate
     :param volume: Volume multiplier
