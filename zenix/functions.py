@@ -177,6 +177,18 @@ def _generate_brown_noise(samples: int) -> np.ndarray:
     return brown.astype(np.float32)
 
 
+def _generate_blue_noise(samples: int) -> np.ndarray:
+    """
+    Generate blue noise.
+
+    :param samples: Number of samples
+    :return: Float32 numpy array
+    """
+    white = np.random.normal(0, 1, samples + 1)
+    blue = np.diff(white)
+    return blue.astype(np.float32)
+
+
 def _apply_fade_in(audio: np.ndarray, sample_rate: int, fade_duration: float) -> None:
     """
     Apply linear fade-in to audio in-place.
