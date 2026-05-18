@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """zenix errors."""
 
+
 class ZenixError(Exception):
     """Base exception for Zenix."""
 
