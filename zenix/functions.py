@@ -7,7 +7,7 @@ import tempfile
 from typing import Any
 import numpy as np
 from nava import play
-from errors import ZenixValidationError
+from .errors import ZenixValidationError
 from .params import DEFAULT_SAMPLE_RATE, DEFAULT_DURATION
 from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN, DEFAULT_FADE_OUT
 from .params import NoiseType
