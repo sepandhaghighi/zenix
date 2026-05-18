@@ -177,6 +177,18 @@ def _generate_brown_noise(samples: int) -> np.ndarray:
     return brown.astype(np.float32)
 
 
+def _generate_blue_noise(samples: int) -> np.ndarray:
+    """
+    Generate blue noise.
+
+    :param samples: Number of samples
+    :return: Float32 numpy array
+    """
+    white = np.random.normal(0, 1, samples + 1)
+    blue = np.diff(white)
+    return blue.astype(np.float32)
+
+
 def _apply_fade_in(audio: np.ndarray, sample_rate: int, fade_duration: float) -> None:
     """
     Apply linear fade-in to audio in-place.
@@ -229,7 +241,7 @@ def generate_noise(
     """
     Generate selected noise type with fade-in and smoothing.
 
-    :param noise_type: white | pink | brown
+    :param noise_type: white | pink | brown | blue
     :param duration: Duration in seconds
     :param sample_rate: Sample rate
     :param volume: Volume multiplier
@@ -253,6 +265,8 @@ def generate_noise(
         audio = _generate_pink_noise(samples)
     elif noise_type == NoiseType.BROWN:
         audio = _generate_brown_noise(samples)
+    elif noise_type == NoiseType.BLUE:
+        audio = _generate_blue_noise(samples)
     else:
         raise ValueError("Unsupported noise type")
 
