@@ -7,6 +7,7 @@ import tempfile
 from typing import Any
 import numpy as np
 from nava import play
+from .errors import ZenixValidationError
 from .params import DEFAULT_SAMPLE_RATE, DEFAULT_DURATION
 from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN, DEFAULT_FADE_OUT
 from .params import NoiseType
@@ -31,22 +32,22 @@ def _validate_audio_buffer(
     :param sample_rate: Sample rate in Hz
     """
     if not isinstance(audio, np.ndarray):
-        raise ValueError(INVALID_AUDIO_ERROR)
+        raise ZenixValidationError(INVALID_AUDIO_ERROR)
 
     if audio.dtype != np.int16:
-        raise ValueError(INVALID_AUDIO_ERROR)
+        raise ZenixValidationError(INVALID_AUDIO_ERROR)
 
     if audio.ndim != 1:
-        raise ValueError(INVALID_AUDIO_ERROR)
+        raise ZenixValidationError(INVALID_AUDIO_ERROR)
 
     if len(audio) == 0:
-        raise ValueError(INVALID_AUDIO_ERROR)
+        raise ZenixValidationError(INVALID_AUDIO_ERROR)
 
     if not isinstance(sample_rate, int):
-        raise ValueError(INVALID_SAMPLE_RATE_ERROR)
+        raise ZenixValidationError(INVALID_SAMPLE_RATE_ERROR)
 
     if sample_rate <= 0:
-        raise ValueError(INVALID_SAMPLE_RATE_ERROR)
+        raise ZenixValidationError(INVALID_SAMPLE_RATE_ERROR)
 
 
 def _validate_save_noise(
@@ -63,7 +64,7 @@ def _validate_save_noise(
     """
     _validate_audio_buffer(audio=audio, sample_rate=sample_rate)
     if not isinstance(filepath, str) or not filepath:
-        raise ValueError(INVALID_FILEPATH_ERROR)
+        raise ZenixValidationError(INVALID_FILEPATH_ERROR)
 
 
 def _validate_generate_noise(
@@ -85,43 +86,43 @@ def _validate_generate_noise(
     :param fade_out: Fade-out duration in seconds
     """
     if not isinstance(noise_type, NoiseType):
-        raise ValueError(INVALID_NOISE_TYPE_ERROR)
+        raise ZenixValidationError(INVALID_NOISE_TYPE_ERROR)
 
     if not isinstance(duration, (int, float)):
-        raise ValueError(INVALID_DURATION_ERROR)
+        raise ZenixValidationError(INVALID_DURATION_ERROR)
 
     if duration <= 0:
-        raise ValueError(INVALID_DURATION_ERROR)
+        raise ZenixValidationError(INVALID_DURATION_ERROR)
 
     if not isinstance(sample_rate, int):
-        raise ValueError(INVALID_SAMPLE_RATE_ERROR)
+        raise ZenixValidationError(INVALID_SAMPLE_RATE_ERROR)
 
     if sample_rate <= 0:
-        raise ValueError(INVALID_SAMPLE_RATE_ERROR)
+        raise ZenixValidationError(INVALID_SAMPLE_RATE_ERROR)
 
     if not isinstance(volume, (int, float)):
-        raise ValueError(INVALID_VOLUME_ERROR)
+        raise ZenixValidationError(INVALID_VOLUME_ERROR)
 
     if not (0.0 <= volume <= 1.0):
-        raise ValueError(INVALID_VOLUME_ERROR)
+        raise ZenixValidationError(INVALID_VOLUME_ERROR)
 
     if not isinstance(fade_in, (int, float)):
-        raise ValueError(INVALID_FADE_IN_ERROR)
+        raise ZenixValidationError(INVALID_FADE_IN_ERROR)
 
     if fade_in < 0:
-        raise ValueError(INVALID_FADE_IN_ERROR)
+        raise ZenixValidationError(INVALID_FADE_IN_ERROR)
 
     if fade_in > duration:
-        raise ValueError(INVALID_FADE_IN_ERROR)
+        raise ZenixValidationError(INVALID_FADE_IN_ERROR)
 
     if not isinstance(fade_out, (int, float)):
-        raise ValueError(INVALID_FADE_OUT_ERROR)
+        raise ZenixValidationError(INVALID_FADE_OUT_ERROR)
 
     if fade_out < 0:
-        raise ValueError(INVALID_FADE_OUT_ERROR)
+        raise ZenixValidationError(INVALID_FADE_OUT_ERROR)
 
     if fade_out > duration:
-        raise ValueError(INVALID_FADE_OUT_ERROR)
+        raise ZenixValidationError(INVALID_FADE_OUT_ERROR)
 
 
 def _validate_play_noise(
@@ -138,7 +139,7 @@ def _validate_play_noise(
     """
     _validate_audio_buffer(audio=audio, sample_rate=sample_rate)
     if not isinstance(loop, bool):
-        raise ValueError(INVALID_LOOP_TYPE_ERROR)
+        raise ZenixValidationError(INVALID_LOOP_TYPE_ERROR)
 
 
 def _generate_white_noise(samples: int) -> np.ndarray:
@@ -268,7 +269,7 @@ def generate_noise(
     elif noise_type == NoiseType.BLUE:
         audio = _generate_blue_noise(samples)
     else:
-        raise ValueError("Unsupported noise type")
+        raise ZenixValidationError("Unsupported noise type")
 
     audio = _normalize(audio)
 
