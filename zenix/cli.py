@@ -6,8 +6,18 @@ import sys
 from .params import DEFAULT_SAMPLE_RATE, DEFAULT_DURATION
 from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN, DEFAULT_FADE_OUT
 from .params import ZENIX_VERSION, NoiseType
+from .errors import ZenixError
 from .functions import generate_noise, play_noise, save_noise
 
+def _print_cli_error(message: str, exit_code: int = 1) -> None:
+    """
+    Print a formatted CLI error message and exit.
+
+    :param message: Error message to display.
+    :param exit_code: Exit status code (default: 1).
+    """
+    print(f"[ZENIX ERROR] {message}", file=sys.stderr)
+    sys.exit(exit_code)
 
 def _parse_args() -> argparse.Namespace:
     """
@@ -113,9 +123,10 @@ def _run(args: argparse.Namespace) -> None:
             sample_rate=args.sample_rate,
             loop=args.loop
         )
-    except ValueError as e:
-        print(e)
-        sys.exit(1)
+    except ZenixError as e:
+        _print_cli_error(str(e))
+    except Exception as e:
+        _print_cli_error(f"Unexpected error: {e}")
 
 
 def main() -> None:
