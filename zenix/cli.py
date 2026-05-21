@@ -20,11 +20,7 @@ def _print_cli_error(message: str, exit_code: int = 1) -> None:
     sys.exit(exit_code)
 
 def _parse_args() -> argparse.Namespace:
-    """
-    Parse CLI arguments.
-
-    :return: parsed arguments
-    """
+    """Parse CLI arguments."""
     parser = argparse.ArgumentParser(
         description="Developer-focused procedural noise generator."
     )
@@ -96,7 +92,7 @@ def _run(args: argparse.Namespace) -> None:
     """
     Run zenix.
 
-    args: arguments
+    :param args: arguments
     """
     if args.version:
         print(ZENIX_VERSION)
