@@ -9,6 +9,7 @@ from .params import ZENIX_VERSION, NoiseType
 from .errors import ZenixError
 from .functions import generate_noise, play_noise, save_noise
 
+
 def _print_cli_error(message: str, exit_code: int = 1) -> None:
     """
     Print a formatted CLI error message and exit.
@@ -18,6 +19,7 @@ def _print_cli_error(message: str, exit_code: int = 1) -> None:
     """
     print(f"[ZENIX ERROR] {message}", file=sys.stderr)
     sys.exit(exit_code)
+
 
 def _parse_args() -> argparse.Namespace:
     """Parse CLI arguments."""
