@@ -7,6 +7,13 @@ from zenix.cli import main
 from zenix import NoiseType
 
 
+def test_cli_version(monkeypatch, capsys):
+    monkeypatch.setattr(sys, "argv", ["zenix", "--version"])
+    main()
+    captured = capsys.readouterr()
+    assert captured.out.strip()
+
+
 def test_cli_default(monkeypatch):
     monkeypatch.setattr(sys, "argv", ["zenix"])
 
