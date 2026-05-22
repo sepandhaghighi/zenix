@@ -147,7 +147,6 @@ def _generate_white_noise(samples: int) -> np.ndarray:
     Generate white noise.
 
     :param samples: Number of samples
-    :return: Float32 numpy array
     """
     return np.random.normal(0, 1, samples).astype(np.float32)
 
@@ -157,7 +156,6 @@ def _generate_pink_noise(samples: int) -> np.ndarray:
     Generate pink noise using Voss-McCartney algorithm approximation.
 
     :param samples: Number of samples
-    :return: Float32 numpy array
     """
     rows = 16
     array = np.random.randn(rows, samples)
@@ -171,7 +169,6 @@ def _generate_brown_noise(samples: int) -> np.ndarray:
     Generate brown (Brownian) noise.
 
     :param samples: Number of samples
-    :return: Float32 numpy array
     """
     white = np.random.normal(0, 1, samples)
     brown = np.cumsum(white)
@@ -183,7 +180,6 @@ def _generate_blue_noise(samples: int) -> np.ndarray:
     Generate blue noise.
 
     :param samples: Number of samples
-    :return: Float32 numpy array
     """
     white = np.random.normal(0, 1, samples + 1)
     blue = np.diff(white)
@@ -223,7 +219,6 @@ def _normalize(audio: np.ndarray) -> np.ndarray:
     Normalize audio signal.
 
     :param audio: Input audio
-    :return: Normalized audio
     """
     max_val = np.max(np.abs(audio))
     if max_val > 0:
@@ -248,7 +243,6 @@ def generate_noise(
     :param volume: Volume multiplier
     :param fade_in: Fade-in duration in seconds
     :param fade_out: Fade-out duration in seconds
-    :return: PCM int16 array
     """
     _validate_generate_noise(
         noise_type=noise_type,
