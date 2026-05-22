@@ -2,9 +2,10 @@
 import sys
 import pytest
 from unittest.mock import patch
-
 from zenix.cli import main
+from zenix.cli import _print_cli_error
 from zenix import NoiseType
+from zenix import ZenixValidationError
 
 
 def test_cli_version(monkeypatch, capsys):
@@ -90,3 +91,33 @@ def test_cli_output_and_play(monkeypatch, tmp_path):
 
     assert filepath.exists()
     mock_play.assert_called_once()
+
+
+def test_cli_print_error(capsys):
+    with pytest.raises(SystemExit) as exc:
+        _print_cli_error("test error", exit_code=5)
+    captured = capsys.readouterr()
+    assert "[ZENIX ERROR] test error" in captured.err
+    assert exc.value.code == 5
+
+
+def test_cli_zenix_error(monkeypatch, capsys):
+    monkeypatch.setattr(sys, "argv", ["zenix"])
+    def fake_generate(*args, **kwargs):
+        raise ZenixValidationError("validation failed")
+    monkeypatch.setattr("zenix.cli.generate_noise", fake_generate)
+    with pytest.raises(SystemExit):
+        main()
+    captured = capsys.readouterr()
+    assert "validation failed" in captured.err
+
+
+def test_cli_unexpected_error(monkeypatch, capsys):
+    monkeypatch.setattr(sys, "argv", ["zenix"])
+    def fake_generate(*args, **kwargs):
+        raise RuntimeError("boom")
+    monkeypatch.setattr("zenix.cli.generate_noise", fake_generate)
+    with pytest.raises(SystemExit):
+        main()
+    captured = capsys.readouterr()
+    assert "Unexpected error: boom" in captured.err
