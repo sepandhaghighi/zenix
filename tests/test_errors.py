@@ -115,7 +115,28 @@ def test_invalid_loop_type():
         play_noise(audio=audio, loop="yes")
 
 
-def test_invalid_filepath():
+def test_save_noise_invalid_filepath():
     audio = np.zeros(100, dtype=np.int16)
     with pytest.raises(ZenixValidationError):
         save_noise("", audio)
+
+
+def test_save_noise_invalid_audio_dtype(tmp_path):
+    filepath = tmp_path / "bad.wav"
+    audio = np.zeros(10, dtype=np.float32)
+    with pytest.raises(ZenixValidationError):
+        save_noise(str(filepath), audio)
+
+
+def test_save_noise_invalid_sample_rate_type(tmp_path):
+    filepath = tmp_path / "bad.wav"
+    audio = np.zeros(10, dtype=np.int16)
+    with pytest.raises(ZenixValidationError):
+        save_noise(str(filepath), audio, sample_rate=44100.0)
+
+
+def test_save_noise_invalid_sample_rate_value(tmp_path):
+    filepath = tmp_path / "bad.wav"
+    audio = np.zeros(10, dtype=np.int16)
+    with pytest.raises(ZenixValidationError):
+        save_noise(str(filepath), audio, sample_rate=0)
