@@ -115,7 +115,7 @@ def test_cli_zenix_error(monkeypatch, capsys):
 
 def test_cli_unexpected_error(monkeypatch, capsys):
     monkeypatch.setattr(sys, "argv", ["zenix"])
-    
+
     def fake_generate(*args, **kwargs):
         raise RuntimeError("boom")
     monkeypatch.setattr("zenix.cli.generate_noise", fake_generate)
