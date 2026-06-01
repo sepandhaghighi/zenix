@@ -61,7 +61,7 @@ def test_noise_repr():
 def test_generate_returns_audio(noise_type):
     noise = Noise(
         noise_type=noise_type,
-        duration=1.0,
+        duration=5,
         sample_rate=8000,
     )
 
@@ -73,7 +73,7 @@ def test_generate_returns_audio(noise_type):
 
 
 def test_audio_property_lazy_generation():
-    noise = Noise(duration=1.0, sample_rate=8000)
+    noise = Noise(duration=5.0, sample_rate=8000)
 
     assert noise._audio is None
 
@@ -85,7 +85,7 @@ def test_audio_property_lazy_generation():
 
 
 def test_audio_property_cached():
-    noise = Noise(duration=1.0, sample_rate=8000)
+    noise = Noise(duration=5.0, sample_rate=8000)
 
     audio1 = noise.audio
     audio2 = noise.audio
@@ -118,14 +118,14 @@ def test_save_calls_backend(monkeypatch, tmp_path):
 
     monkeypatch.setattr("zenix.noise.save_noise", fake_save)
 
-    noise = Noise(duration=1.0)
+    noise = Noise(duration=5.0)
     noise.save(str(tmp_path / "test.wav"))
 
     assert calls["count"] == 1
 
 
 def test_generate_stores_audio():
-    noise = Noise(duration=1.0, sample_rate=8000)
+    noise = Noise(duration=5.0, sample_rate=8000)
 
     audio = noise.generate()
 
