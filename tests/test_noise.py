@@ -102,7 +102,7 @@ def test_play_calls_backend(monkeypatch):
 
     monkeypatch.setattr("zenix.noise.play_noise", fake_play)
 
-    noise = Noise(duration=1.0)
+    noise = Noise(duration=5.0)
     noise.play(loop=True)
 
     assert calls["count"] == 1
