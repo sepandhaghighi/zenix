@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """zenix noise."""
 
-from typing import Optional
 import numpy as np
 
 from .params import DEFAULT_SAMPLE_RATE, DEFAULT_DURATION
