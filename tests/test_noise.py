@@ -69,7 +69,7 @@ def test_generate_returns_audio(noise_type):
 
     assert isinstance(audio, np.ndarray)
     assert audio.dtype == np.int16
-    assert len(audio) == 8000
+    assert len(audio) == 40000
 
 
 def test_audio_property_lazy_generation():
@@ -170,7 +170,7 @@ def test_invalid_fade_in():
         ZenixValidationError,
         match="`fade_in` must be a non-negative number not exceeding `duration`."
     ):
-        Noise(duration=1, fade_in=2)
+        Noise(duration=1, fade_in=2, fade_out=0.1)
 
 
 def test_invalid_fade_out():
@@ -178,4 +178,4 @@ def test_invalid_fade_out():
         ZenixValidationError,
         match="`fade_out` must be a non-negative number not exceeding `duration`."
     ):
-        Noise(duration=1, fade_out=2)
+        Noise(duration=1, fade_out=2, fade_in=0.1)
