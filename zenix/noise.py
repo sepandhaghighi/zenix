@@ -51,8 +51,7 @@ class Noise:
         self._volume = volume
         self._fade_in = fade_in
         self._fade_out = fade_out
-
-        self._audio: Optional[np.ndarray] = None
+        self._audio = None
 
     def __repr__(self) -> str:
         """
