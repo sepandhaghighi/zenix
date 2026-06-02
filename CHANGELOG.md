@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `Noise` class
 ### Changed
 - Test system modified
+- `README.md` updated
 ## [0.6] - 2026-05-25
 ### Added
 - Blue noise
