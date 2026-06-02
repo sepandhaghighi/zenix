@@ -96,7 +96,7 @@ def test_audio_property_cached():
 def test_play_calls_backend(monkeypatch):
     calls = {"count": 0}
 
-    def fake_play(self, loop=False):
+    def fake_play(audio, sample_rate, loop=False):
         calls["count"] += 1
         assert loop is True
 
