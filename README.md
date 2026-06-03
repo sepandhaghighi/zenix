@@ -154,6 +154,37 @@ save_noise(
 | `audio` | `numpy.ndarray` | PCM mono audio buffer (`int16`) | **Required** |
 | `sample_rate` | `int` | Audio sample rate in Hz | `44100` |
 
+#### Noise Object
+
+The `Noise` class provides an object-oriented interface for generating, playing, and saving procedural noise.
+
+```python
+from zenix import Noise, NoiseType
+
+noise = Noise(
+    noise_type=NoiseType.PINK,
+    duration=120,
+    sample_rate=44100,
+    volume=0.25,
+    fade_in=2,
+    fade_out=2
+)
+
+noise.play()
+noise.save("noise.wav")
+```
+
+| Parameter     | Type        | Description                            | Default           |
+| ------------- | ----------- | -------------------------------------- | ----------------- |
+| `noise_type`  | `NoiseType` | Noise type                             | `NoiseType.WHITE` |
+| `duration`    | `float`     | Duration of generated noise in seconds | `30`              |
+| `sample_rate` | `int`       | Audio sample rate in Hz                | `44100`           |
+| `volume`      | `float`     | Output volume multiplier               | `0.3`             |
+| `fade_in`     | `float`     | Fade-in duration in seconds            | `2`               |
+| `fade_out`    | `float`     | Fade-out duration in seconds           | `2`               |
+
+The generated audio can be accessed through the `audio` property, which automatically generates the noise on first access and returns a PCM `int16` NumPy array.
+
 
 ## Issues & Bug Reports			
 
