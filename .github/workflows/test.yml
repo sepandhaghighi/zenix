@@ -73,8 +73,9 @@ jobs:
         shell: bash
         run: |
           pip uninstall -y zenix
+          pip install dist/*.whl
           mkdir wheel_test
           cd wheel_test
-          python -c "import zenix"
+          python -c "from zenix import *"
           zenix --version
           python -m zenix --version
