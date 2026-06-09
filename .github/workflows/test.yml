@@ -38,7 +38,9 @@ jobs:
           pip install .
       - name: Smoke test
         run: |
+          python -c "from zenix import *"
           zenix --version
+          python -m zenix --version
       - name: Dev requirements installation
         run: |
           pip install --upgrade --upgrade-strategy=only-if-needed -r requirements-dev.txt
@@ -72,3 +74,5 @@ jobs:
           pip uninstall -y zenix
           pip install dist/*.whl
           python -c "from zenix import *"
+          zenix --version
+          python -m zenix --version
