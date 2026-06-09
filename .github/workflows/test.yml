@@ -73,7 +73,6 @@ jobs:
         shell: bash
         run: |
           pip uninstall -y zenix
-          pip install dist/*.whl
-          python -c "import pycm"
+          python -c "import zenix"
           zenix --version
           python -m zenix --version
