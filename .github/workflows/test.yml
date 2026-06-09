@@ -70,6 +70,7 @@ jobs:
         run: |
           twine check dist/*
       - name: Wheel smoke test
+        shell: bash
         run: |
           pip uninstall -y zenix
           pip install dist/*.whl
