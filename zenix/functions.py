@@ -226,6 +226,13 @@ def _normalize(audio: np.ndarray) -> np.ndarray:
     return audio
 
 
+NOISE_GENERATORS = {
+    NoiseType.WHITE: _generate_white_noise,
+    NoiseType.PINK: _generate_pink_noise,
+    NoiseType.BROWN: _generate_brown_noise,
+    NoiseType.BLUE: _generate_blue_noise,
+}
+
 def generate_noise(
     noise_type: NoiseType = NoiseType.WHITE,
     duration: float = DEFAULT_DURATION,
