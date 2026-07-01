@@ -226,6 +226,13 @@ def _normalize(audio: np.ndarray) -> np.ndarray:
     return audio
 
 
+NOISE_GENERATORS = {
+    NoiseType.WHITE: _generate_white_noise,
+    NoiseType.PINK: _generate_pink_noise,
+    NoiseType.BROWN: _generate_brown_noise,
+    NoiseType.BLUE: _generate_blue_noise,
+}
+
 def generate_noise(
     noise_type: NoiseType = NoiseType.WHITE,
     duration: float = DEFAULT_DURATION,
@@ -254,16 +261,7 @@ def generate_noise(
 
     samples = int(duration * sample_rate)
 
-    if noise_type == NoiseType.WHITE:
-        audio = _generate_white_noise(samples)
-    elif noise_type == NoiseType.PINK:
-        audio = _generate_pink_noise(samples)
-    elif noise_type == NoiseType.BROWN:
-        audio = _generate_brown_noise(samples)
-    elif noise_type == NoiseType.BLUE:
-        audio = _generate_blue_noise(samples)
-    else:
-        raise ZenixValidationError("Unsupported noise type")
+    audio = NOISE_GENERATORS[noise_type](samples)
 
     audio = _normalize(audio)
 
