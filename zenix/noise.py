@@ -36,7 +36,7 @@ class Noise:
         :param volume: Volume multiplier
         :param fade_in: Fade-in duration in seconds
         :param fade_out: Fade-out duration in seconds
-        :param seed: Seed
+        :param seed: Random seed for reproducible noise
         """
         _validate_generate_noise(
             noise_type=noise_type,
@@ -145,7 +145,7 @@ class Noise:
         """
         Return seed.
 
-        :return: Seed
+        :return: Random seed for reproducible noise
         """
         return self._seed
 

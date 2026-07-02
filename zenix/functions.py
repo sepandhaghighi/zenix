@@ -86,7 +86,7 @@ def _validate_generate_noise(
     :param volume: Volume (0.0 - 1.0)
     :param fade_in: Fade-in duration in seconds
     :param fade_out: Fade-out duration in seconds
-    :param seed: Seed
+    :param seed: Random seed for reproducible noise
     """
     if not isinstance(noise_type, NoiseType):
         raise ZenixValidationError(INVALID_NOISE_TYPE_ERROR)
@@ -260,7 +260,7 @@ def generate_noise(
     :param volume: Volume multiplier
     :param fade_in: Fade-in duration in seconds
     :param fade_out: Fade-out duration in seconds
-    :param seed: Seed
+    :param seed: Random seed for reproducible noise
     """
     _validate_generate_noise(
         noise_type=noise_type,
