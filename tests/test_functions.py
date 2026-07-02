@@ -7,6 +7,72 @@ from zenix import generate_noise, play_noise, save_noise
 from zenix import NoiseType
 
 
+def test_generate_noise_seed1():
+    duration = 1.0
+    sample_rate = 8000
+
+    audio1 = generate_noise(
+        noise_type=NoiseType.WHITE,
+        duration=duration,
+        sample_rate=sample_rate,
+        volume=1.0,
+        fade_in=0.1,
+        fade_out=0.1,
+        seed=4
+    )
+
+    audio2 = generate_noise(
+        noise_type=NoiseType.WHITE,
+        duration=duration,
+        sample_rate=sample_rate,
+        volume=1.0,
+        fade_in=0.1,
+        fade_out=0.1,
+        seed=15
+    )
+
+    assert isinstance(audio1, np.ndarray)
+    assert isinstance(audio2, np.ndarray)
+    assert audio1.dtype == np.int16
+    assert audio2.dtype == np.int16
+    assert len(audio1) == int(duration * sample_rate)
+    assert len(audio2) == int(duration * sample_rate)
+    assert not all(audio1 == audio2)
+
+
+def test_generate_noise_seed2():
+    duration = 1.0
+    sample_rate = 8000
+
+    audio1 = generate_noise(
+        noise_type=NoiseType.WHITE,
+        duration=duration,
+        sample_rate=sample_rate,
+        volume=1.0,
+        fade_in=0.1,
+        fade_out=0.1,
+        seed=40
+    )
+
+    audio2 = generate_noise(
+        noise_type=NoiseType.WHITE,
+        duration=duration,
+        sample_rate=sample_rate,
+        volume=1.0,
+        fade_in=0.1,
+        fade_out=0.1,
+        seed=40
+    )
+
+    assert isinstance(audio1, np.ndarray)
+    assert isinstance(audio2, np.ndarray)
+    assert audio1.dtype == np.int16
+    assert audio2.dtype == np.int16
+    assert len(audio1) == int(duration * sample_rate)
+    assert len(audio2) == int(duration * sample_rate)
+    assert all(audio1 == audio2)
+
+
 @pytest.mark.parametrize("noise_type", list(NoiseType))
 def test_generate_noise_all_types(noise_type):
     duration = 1.0
