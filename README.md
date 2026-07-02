@@ -65,7 +65,7 @@ Zenix is a lightweight tool for generating procedural noise such as white, pink,
 ### CLI
 
 ```bash
-zenix --type=white --duration=120 --volume=0.25 --fade-in=2 --fade-out=3 --sample-rate=44000 --loop --output=noise.wav
+zenix --type=white --duration=120 --volume=0.25 --fade-in=2 --fade-out=3 --sample-rate=44000 --loop --seed=5 --output=noise.wav
 ```
 
 #### Arguments
@@ -80,6 +80,7 @@ zenix --type=white --duration=120 --volume=0.25 --fade-in=2 --fade-out=3 --sampl
 | `--sample-rate` | Audio sample rate in Hz | `44100` |
 | `--loop` | Enable continuous looping playback | `False` |
 | `--output` | Save generated noise to WAV file | `None` |
+| `--seed` | Random seed for reproducible noise | `None` |
 
 
 ### Library
@@ -96,7 +97,8 @@ audio = generate_noise(
         sample_rate=44000,
         volume=0.25,
         fade_in=2,
-		fade_out=2
+		fade_out=2,
+        seed=4
     )
 ```
 
@@ -108,6 +110,7 @@ audio = generate_noise(
 | `volume` | `float` | Output volume multiplier | `0.3` |
 | `fade_in` | `float` | Fade-in duration in seconds | `2` |
 | `fade_out` | `float` | Fade-out duration in seconds | `2` |
+| `seed` | `int` | Random seed for reproducible noise | `None` |
 
 
 #### Play Noise
@@ -182,6 +185,7 @@ noise.save("noise.wav")
 | `volume`      | `float`     | Output volume multiplier               | `0.3`             |
 | `fade_in`     | `float`     | Fade-in duration in seconds            | `2`               |
 | `fade_out`    | `float`     | Fade-out duration in seconds           | `2`               |
+| `seed`        | `int`       | Random seed for reproducible noise     | `None`            |
 
 The generated audio can be accessed through the `audio` property, which automatically generates the noise on first access and returns a PCM `int16` NumPy array.
 
