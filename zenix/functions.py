@@ -4,7 +4,7 @@
 import os
 import wave
 import tempfile
-from typing import Any
+from typing import Any, Optional
 import numpy as np
 from nava import play
 from .errors import ZenixValidationError
@@ -19,6 +19,7 @@ from .params import INVALID_FADE_IN_ERROR
 from .params import INVALID_FADE_OUT_ERROR
 from .params import INVALID_AUDIO_ERROR
 from .params import INVALID_LOOP_TYPE_ERROR, INVALID_FILEPATH_ERROR
+from .params import DEFAULT_SEED, INVALID_SEED_ERROR
 
 
 def _validate_audio_buffer(
@@ -74,6 +75,7 @@ def _validate_generate_noise(
     volume: Any,
     fade_in: Any,
     fade_out: Any,
+    seed: Any,
 ) -> None:
     """
     Validate generate_noise inputs.
@@ -84,6 +86,7 @@ def _validate_generate_noise(
     :param volume: Volume (0.0 - 1.0)
     :param fade_in: Fade-in duration in seconds
     :param fade_out: Fade-out duration in seconds
+    :param seed: Seed
     """
     if not isinstance(noise_type, NoiseType):
         raise ZenixValidationError(INVALID_NOISE_TYPE_ERROR)
@@ -123,6 +126,12 @@ def _validate_generate_noise(
 
     if fade_out > duration:
         raise ZenixValidationError(INVALID_FADE_OUT_ERROR)
+    
+    if seed is not None:
+        if not isinstance(seed, int):
+            raise ZenixValidationError(INVALID_SEED_ERROR)
+        if seed < 0:
+            raise ZenixValidationError(INVALID_SEED_ERROR)
 
 
 def _validate_play_noise(
@@ -239,7 +248,8 @@ def generate_noise(
     sample_rate: int = DEFAULT_SAMPLE_RATE,
     volume: float = DEFAULT_VOLUME,
     fade_in: float = DEFAULT_FADE_IN,
-    fade_out: float = DEFAULT_FADE_OUT
+    fade_out: float = DEFAULT_FADE_OUT,
+    seed: Optional[int] = DEFAULT_SEED
 ) -> np.ndarray:
     """
     Generate selected noise type with fade-in and smoothing.
@@ -250,6 +260,7 @@ def generate_noise(
     :param volume: Volume multiplier
     :param fade_in: Fade-in duration in seconds
     :param fade_out: Fade-out duration in seconds
+    :param seed: Seed
     """
     _validate_generate_noise(
         noise_type=noise_type,
@@ -257,9 +268,13 @@ def generate_noise(
         sample_rate=sample_rate,
         volume=volume,
         fade_in=fade_in,
-        fade_out=fade_out)
+        fade_out=fade_out,
+        seed=seed)
 
     samples = int(duration * sample_rate)
+
+    if seed is not None:
+        np.random.seed(seed)
 
     audio = NOISE_GENERATORS[noise_type](samples)
 
