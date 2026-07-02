@@ -14,6 +14,7 @@ class NoiseType(Enum):
     BLUE = "blue"
 
 
+DEFAULT_SEED = None
 DEFAULT_SAMPLE_RATE = 44100
 DEFAULT_DURATION = 30.0
 DEFAULT_VOLUME = 0.3
@@ -37,3 +38,5 @@ INVALID_AUDIO_ERROR = "`audio` must be a non-empty 1D numpy.ndarray with dtype i
 INVALID_LOOP_TYPE_ERROR = "`loop` must be bool."
 
 INVALID_FILEPATH_ERROR = "`filepath` must be a non-empty string."
+
+INVALID_SEED_ERROR = "`seed` must be a non-negative integer or None."
