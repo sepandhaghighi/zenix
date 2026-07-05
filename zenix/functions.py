@@ -126,7 +126,7 @@ def _validate_generate_noise(
 
     if fade_out > duration:
         raise ZenixValidationError(INVALID_FADE_OUT_ERROR)
-    
+
     if seed is not None:
         if not isinstance(seed, int):
             raise ZenixValidationError(INVALID_SEED_ERROR)
@@ -241,6 +241,7 @@ NOISE_GENERATORS = {
     NoiseType.BROWN: _generate_brown_noise,
     NoiseType.BLUE: _generate_blue_noise,
 }
+
 
 def generate_noise(
     noise_type: NoiseType = NoiseType.WHITE,

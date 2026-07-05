@@ -139,7 +139,7 @@ class Noise:
         if self._audio is None:
             self.generate()
         return self._audio
-    
+
     @property
     def seed(self) -> Optional[int]:
         """
