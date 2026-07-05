@@ -74,6 +74,16 @@ def test_invalid_fade_out_range():
         generate_noise(duration=1, fade_out=2, fade_in=0.1)
 
 
+def test_invalid_seed_type():
+    with pytest.raises(ZenixValidationError, match="`seed` must be a non-negative integer or None."):
+        generate_noise(seed="seed")
+
+
+def test_invalid_seed_value():
+    with pytest.raises(ZenixValidationError, match="`seed` must be a non-negative integer or None."):
+        generate_noise(seed=-20)
+
+
 def test_invalid_audio_type():
     with pytest.raises(ZenixValidationError, match="`audio` must be a non-empty 1D numpy.ndarray with dtype int16."):
         play_noise(audio="not-array")
