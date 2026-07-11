@@ -5,8 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- `seed` parameter
+- `--seed` argument
 ### Changed
 - `generate_noise` function modified
+- `README.md` updated
 ## [0.7] - 2026-06-13
 ### Added
 - `Noise` class

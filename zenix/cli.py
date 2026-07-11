@@ -87,6 +87,12 @@ def _parse_args() -> argparse.Namespace:
         help="Save noise to WAV file"
     )
 
+    parser.add_argument(
+        "--seed",
+        type=int,
+        help="Random seed for reproducible noise"
+    )
+
     return parser.parse_args()
 
 
@@ -106,7 +112,8 @@ def _run(args: argparse.Namespace) -> None:
             sample_rate=args.sample_rate,
             volume=args.volume,
             fade_in=args.fade_in,
-            fade_out=args.fade_out
+            fade_out=args.fade_out,
+            seed=args.seed
         )
         if args.output:
             print(f"Saving {args.type} noise to {args.output}...")

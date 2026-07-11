@@ -72,6 +72,62 @@ def test_generate_returns_audio(noise_type):
     assert len(audio) == 40000
 
 
+def test_generate_seed1():
+    noise1 = Noise(
+        noise_type=NoiseType.BLUE,
+        duration=5,
+        sample_rate=8000,
+        seed=4
+    )
+
+    audio1 = noise1.generate()
+
+    noise2 = Noise(
+        noise_type=NoiseType.BLUE,
+        duration=5,
+        sample_rate=8000,
+        seed=15
+    )
+
+    audio2 = noise2.generate()
+
+    assert isinstance(audio1, np.ndarray)
+    assert isinstance(audio2, np.ndarray)
+    assert audio1.dtype == np.int16
+    assert audio2.dtype == np.int16
+    assert len(audio1) == 40000
+    assert len(audio2) == 40000
+    assert not all(audio1 == audio2)
+
+
+def test_generate_seed2():
+    noise1 = Noise(
+        noise_type=NoiseType.BLUE,
+        duration=5,
+        sample_rate=8000,
+        seed=40
+    )
+
+    audio1 = noise1.generate()
+
+    noise2 = Noise(
+        noise_type=NoiseType.BLUE,
+        duration=5,
+        sample_rate=8000,
+        seed=40
+    )
+
+    audio2 = noise2.generate()
+
+    assert isinstance(audio1, np.ndarray)
+    assert isinstance(audio2, np.ndarray)
+    assert audio1.dtype == np.int16
+    assert audio2.dtype == np.int16
+    assert len(audio1) == 40000
+    assert len(audio2) == 40000
+    assert all(audio1 == audio2)
+
+
 def test_audio_property_lazy_generation():
     noise = Noise(duration=5.0, sample_rate=8000)
 

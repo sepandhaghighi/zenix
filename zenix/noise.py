@@ -2,9 +2,10 @@
 """zenix noise."""
 
 import numpy as np
-
+from typing import Optional
 from .params import DEFAULT_SAMPLE_RATE, DEFAULT_DURATION
 from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN, DEFAULT_FADE_OUT
+from .params import DEFAULT_SEED
 from .params import NoiseType
 
 from .functions import generate_noise
@@ -23,7 +24,8 @@ class Noise:
         sample_rate: int = DEFAULT_SAMPLE_RATE,
         volume: float = DEFAULT_VOLUME,
         fade_in: float = DEFAULT_FADE_IN,
-        fade_out: float = DEFAULT_FADE_OUT
+        fade_out: float = DEFAULT_FADE_OUT,
+        seed: Optional[int] = DEFAULT_SEED
     ) -> None:
         """
         Initialize noise object.
@@ -34,6 +36,7 @@ class Noise:
         :param volume: Volume multiplier
         :param fade_in: Fade-in duration in seconds
         :param fade_out: Fade-out duration in seconds
+        :param seed: Random seed for reproducible noise
         """
         _validate_generate_noise(
             noise_type=noise_type,
@@ -41,7 +44,8 @@ class Noise:
             sample_rate=sample_rate,
             volume=volume,
             fade_in=fade_in,
-            fade_out=fade_out
+            fade_out=fade_out,
+            seed=seed
         )
 
         self._noise_type = noise_type
@@ -50,6 +54,7 @@ class Noise:
         self._volume = volume
         self._fade_in = fade_in
         self._fade_out = fade_out
+        self._seed = seed
         self._audio = None
 
     def __repr__(self) -> str:
@@ -135,6 +140,15 @@ class Noise:
             self.generate()
         return self._audio
 
+    @property
+    def seed(self) -> Optional[int]:
+        """
+        Return seed.
+
+        :return: Random seed for reproducible noise
+        """
+        return self._seed
+
     def generate(self) -> np.ndarray:
         """
         Generate noise audio.
@@ -147,7 +161,8 @@ class Noise:
             sample_rate=self.sample_rate,
             volume=self.volume,
             fade_in=self.fade_in,
-            fade_out=self.fade_out
+            fade_out=self.fade_out,
+            seed=self.seed
         )
         return self._audio
 
