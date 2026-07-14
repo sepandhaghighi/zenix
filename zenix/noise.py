@@ -70,7 +70,8 @@ class Noise:
             f"sample_rate={self.sample_rate}, "
             f"volume={self.volume}, "
             f"fade_in={self.fade_in}, "
-            f"fade_out={self.fade_out})"
+            f"fade_out={self.fade_out}), "
+            f"seed={self.seed})"
         )
 
     @property
