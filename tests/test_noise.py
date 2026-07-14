@@ -54,7 +54,7 @@ def test_noise_repr():
         "volume=0.5, "
         "fade_in=1, "
         "fade_out=1, "
-        "seed=None"
+        "seed=None)"
     )
 
 
