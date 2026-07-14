@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Validation system modified
 - `generate_noise` function modified
+- `Noise` class `__repr__` method updated
 - `README.md` updated
 ## [0.7] - 2026-06-13
 ### Added
