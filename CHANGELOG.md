@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `seed` parameter
 - `--seed` argument
 ### Changed
+- Validation system modified
 - `generate_noise` function modified
 - `README.md` updated
 ## [0.7] - 2026-06-13
