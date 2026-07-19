@@ -172,6 +172,17 @@ def _generate_blue_noise(samples: int) -> np.ndarray:
     return blue.astype(np.float32)
 
 
+def _generate_violet_noise(samples: int) -> np.ndarray:
+    """
+    Generate violet noise (stronger high-frequency emphasis).
+
+    :param samples: Number of samples
+    """
+    white = np.random.normal(0, 1, samples + 2)
+    violet = np.diff(np.diff(white))
+    return violet.astype(np.float32)
+
+
 def _apply_fade_in(audio: np.ndarray, sample_rate: int, fade_duration: float) -> None:
     """
     Apply linear fade-in to audio in-place.
