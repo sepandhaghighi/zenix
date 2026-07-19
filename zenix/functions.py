@@ -228,6 +228,7 @@ NOISE_GENERATORS = {
     NoiseType.PINK: _generate_pink_noise,
     NoiseType.BROWN: _generate_brown_noise,
     NoiseType.BLUE: _generate_blue_noise,
+    NoiseType.VIOLET: _generate_violet_noise,
 }
 
 

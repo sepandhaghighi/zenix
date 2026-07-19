@@ -12,6 +12,7 @@ class NoiseType(Enum):
     PINK = "pink"
     BROWN = "brown"
     BLUE = "blue"
+    VIOLET = "violet"
 
 
 DEFAULT_SEED = None
