@@ -123,3 +123,37 @@ def test_cli_unexpected_error(monkeypatch, capsys):
         main()
     captured = capsys.readouterr()
     assert "Unexpected error: boom" in captured.err
+
+
+def test_cli_keyboard_interrupt(monkeypatch, capsys):
+    monkeypatch.setattr(sys, "argv", ["zenix"])
+
+    def fake_generate(*args, **kwargs):
+        raise KeyboardInterrupt
+
+    monkeypatch.setattr("zenix.cli.generate_noise", fake_generate)
+
+    with pytest.raises(SystemExit) as exc:
+        main()
+
+    captured = capsys.readouterr()
+
+    assert "See you. Bye!" in captured.out
+    assert exc.value.code == 130
+
+
+def test_cli_eof_error(monkeypatch, capsys):
+    monkeypatch.setattr(sys, "argv", ["zenix"])
+
+    def fake_generate(*args, **kwargs):
+        raise EOFError
+
+    monkeypatch.setattr("zenix.cli.generate_noise", fake_generate)
+
+    with pytest.raises(SystemExit) as exc:
+        main()
+
+    captured = capsys.readouterr()
+
+    assert "See you. Bye!" in captured.out
+    assert exc.value.code == 130
