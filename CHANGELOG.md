@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Violet noise
+### Changed
+- Exit message updated
 ## [0.8] - 2026-07-17
 ### Added
 - `seed` parameter
