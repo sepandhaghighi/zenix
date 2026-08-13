@@ -41,3 +41,5 @@ INVALID_LOOP_TYPE_ERROR = "`loop` must be bool."
 INVALID_FILEPATH_ERROR = "`filepath` must be a non-empty string."
 
 INVALID_SEED_ERROR = "`seed` must be a non-negative integer or None."
+
+EXIT_MESSAGE = "See you. Bye!"

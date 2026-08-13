@@ -5,7 +5,7 @@ import argparse
 import sys
 from .params import DEFAULT_SAMPLE_RATE, DEFAULT_DURATION
 from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN, DEFAULT_FADE_OUT
-from .params import ZENIX_VERSION, NoiseType
+from .params import ZENIX_VERSION, NoiseType, EXIT_MESSAGE
 from .errors import ZenixError
 from .functions import generate_noise, play_noise, save_noise
 
@@ -128,6 +128,9 @@ def _run(args: argparse.Namespace) -> None:
             sample_rate=args.sample_rate,
             loop=args.loop
         )
+    except (KeyboardInterrupt, EOFError):
+        print(EXIT_MESSAGE)
+        sys.exit(130)
     except ZenixError as e:
         _print_cli_error(str(e))
     except Exception as e:
