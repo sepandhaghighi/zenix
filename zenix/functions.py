@@ -44,7 +44,7 @@ def _validate_audio_buffer(
     if len(audio) == 0:
         raise ZenixValidationError(INVALID_AUDIO_ERROR)
 
-    if not isinstance(sample_rate, int):
+    if isinstance(sample_rate, bool) or not isinstance(sample_rate, int):
         raise ZenixValidationError(INVALID_SAMPLE_RATE_ERROR)
 
     if sample_rate <= 0:
@@ -91,23 +91,23 @@ def _validate_generate_noise(
     if not isinstance(noise_type, NoiseType):
         raise ZenixValidationError(INVALID_NOISE_TYPE_ERROR)
 
-    if not isinstance(duration, (int, float)) or duration <= 0:
+    if isinstance(duration, bool) or not isinstance(duration, (int, float)) or duration <= 0:
         raise ZenixValidationError(INVALID_DURATION_ERROR)
 
-    if not isinstance(sample_rate, int) or sample_rate <= 0:
+    if isinstance(sample_rate, bool) or not isinstance(sample_rate, int) or sample_rate <= 0:
         raise ZenixValidationError(INVALID_SAMPLE_RATE_ERROR)
 
-    if not isinstance(volume, (int, float)) or not (0.0 <= volume <= 1.0):
+    if isinstance(volume, bool) or not isinstance(volume, (int, float)) or not (0.0 <= volume <= 1.0):
         raise ZenixValidationError(INVALID_VOLUME_ERROR)
 
-    if not isinstance(fade_in, (int, float)) or fade_in < 0 or fade_in > duration:
+    if isinstance(fade_in, bool) or not isinstance(fade_in, (int, float)) or fade_in < 0 or fade_in > duration:
         raise ZenixValidationError(INVALID_FADE_IN_ERROR)
 
-    if not isinstance(fade_out, (int, float)) or fade_out < 0 or fade_out > duration:
+    if isinstance(fade_out, bool) or not isinstance(fade_out, (int, float)) or fade_out < 0 or fade_out > duration:
         raise ZenixValidationError(INVALID_FADE_OUT_ERROR)
 
     if seed is not None:
-        if not isinstance(seed, int) or seed < 0:
+        if isinstance(seed, bool) or not isinstance(seed, int) or seed < 0:
             raise ZenixValidationError(INVALID_SEED_ERROR)
 
 
