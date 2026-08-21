@@ -9,9 +9,14 @@ def test_invalid_noise_type():
         generate_noise(noise_type="white")
 
 
-def test_invalid_duration_type():
+def test_invalid_duration_type1():
     with pytest.raises(ZenixValidationError, match="`duration` must be a number greater than 0."):
         generate_noise(duration="10")
+
+
+def test_invalid_duration_type2():
+    with pytest.raises(ZenixValidationError, match="`duration` must be a number greater than 0."):
+        generate_noise(duration=True)
 
 
 def test_invalid_duration_value():
@@ -19,9 +24,14 @@ def test_invalid_duration_value():
         generate_noise(duration=0)
 
 
-def test_invalid_sample_rate_type():
+def test_invalid_sample_rate_type1():
     with pytest.raises(ZenixValidationError, match="`sample_rate` must be a positive integer."):
         generate_noise(sample_rate=44100.0)
+
+
+def test_invalid_sample_rate_type2():
+    with pytest.raises(ZenixValidationError, match="`sample_rate` must be a positive integer."):
+        generate_noise(sample_rate=True)
 
 
 def test_invalid_sample_rate_value():
@@ -29,9 +39,14 @@ def test_invalid_sample_rate_value():
         generate_noise(sample_rate=0)
 
 
-def test_invalid_volume_type():
+def test_invalid_volume_type1():
     with pytest.raises(ZenixValidationError, match="`volume` must be a number between 0.0 and 1.0."):
         generate_noise(volume="0.5")
+
+
+def test_invalid_volume_type2():
+    with pytest.raises(ZenixValidationError, match="`volume` must be a number between 0.0 and 1.0."):
+        generate_noise(volume=False)
 
 
 def test_invalid_volume_range_low():
@@ -44,9 +59,14 @@ def test_invalid_volume_range_high():
         generate_noise(volume=1.5)
 
 
-def test_invalid_fade_in_type():
+def test_invalid_fade_in_type1():
     with pytest.raises(ZenixValidationError, match="`fade_in` must be a non-negative number not exceeding `duration`."):
         generate_noise(fade_in="2")
+
+
+def test_invalid_fade_in_type2():
+    with pytest.raises(ZenixValidationError, match="`fade_in` must be a non-negative number not exceeding `duration`."):
+        generate_noise(fade_in=True)
 
 
 def test_invalid_fade_in_value():
@@ -59,9 +79,14 @@ def test_invalid_fade_in_range():
         generate_noise(duration=1, fade_in=2)
 
 
-def test_invalid_fade_out_type():
+def test_invalid_fade_out_type1():
     with pytest.raises(ZenixValidationError, match="`fade_out` must be a non-negative number not exceeding `duration`."):
         generate_noise(fade_out="2")
+
+
+def test_invalid_fade_out_type2():
+    with pytest.raises(ZenixValidationError, match="`fade_out` must be a non-negative number not exceeding `duration`."):
+        generate_noise(fade_out=False)
 
 
 def test_invalid_fade_out_value():
@@ -74,9 +99,14 @@ def test_invalid_fade_out_range():
         generate_noise(duration=1, fade_out=2, fade_in=0.1)
 
 
-def test_invalid_seed_type():
+def test_invalid_seed_type1():
     with pytest.raises(ZenixValidationError, match="`seed` must be a non-negative integer or None."):
         generate_noise(seed="seed")
+
+
+def test_invalid_seed_type2():
+    with pytest.raises(ZenixValidationError, match="`seed` must be a non-negative integer or None."):
+        generate_noise(seed=True)
 
 
 def test_invalid_seed_value():
@@ -107,10 +137,16 @@ def test_invalid_audio_empty():
         play_noise(audio=audio)
 
 
-def test_invalid_play_sample_rate_type():
+def test_invalid_play_sample_rate_type1():
     audio = np.zeros(100, dtype=np.int16)
     with pytest.raises(ZenixValidationError, match="`sample_rate` must be a positive integer."):
         play_noise(audio=audio, sample_rate=44100.0)
+
+
+def test_invalid_play_sample_rate_type2():
+    audio = np.zeros(100, dtype=np.int16)
+    with pytest.raises(ZenixValidationError, match="`sample_rate` must be a positive integer."):
+        play_noise(audio=audio, sample_rate=False)
 
 
 def test_invalid_play_sample_rate_value():
@@ -138,11 +174,18 @@ def test_save_noise_invalid_audio_dtype(tmp_path):
         save_noise(str(filepath), audio)
 
 
-def test_save_noise_invalid_sample_rate_type(tmp_path):
+def test_save_noise_invalid_sample_rate_type1(tmp_path):
     filepath = tmp_path / "bad.wav"
     audio = np.zeros(10, dtype=np.int16)
     with pytest.raises(ZenixValidationError):
         save_noise(str(filepath), audio, sample_rate=44100.0)
+
+
+def test_save_noise_invalid_sample_rate_type2(tmp_path):
+    filepath = tmp_path / "bad.wav"
+    audio = np.zeros(10, dtype=np.int16)
+    with pytest.raises(ZenixValidationError):
+        save_noise(str(filepath), audio, sample_rate=True)
 
 
 def test_save_noise_invalid_sample_rate_value(tmp_path):
