@@ -6,7 +6,7 @@ from typing import Optional
 from .params import DEFAULT_SAMPLE_RATE, DEFAULT_DURATION
 from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN, DEFAULT_FADE_OUT
 from .params import DEFAULT_SEED
-from .params import NoiseType
+from .params import NoiseType, FadeType
 
 from .functions import generate_noise
 from .functions import play_noise
