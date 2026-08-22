@@ -189,31 +189,39 @@ def _generate_violet_noise(samples: int) -> np.ndarray:
     return violet.astype(np.float32)
 
 
-def _apply_fade_in(audio: np.ndarray, sample_rate: int, fade_duration: float) -> None:
+def _apply_fade_in(audio: np.ndarray, sample_rate: int, fade_duration: float, fade_type: FadeType) -> None:
     """
     Apply linear fade-in to audio in-place.
 
     :param audio: Audio array
     :param sample_rate: Sample rate
     :param fade_duration: Fade duration in seconds
+    :param fade_type: Fade type 
     """
     fade_samples = int(sample_rate * fade_duration)
     fade_samples = min(fade_samples, len(audio))
-    fade_curve = np.linspace(0.0, 1.0, fade_samples)
+    if fade_type == FadeType.LINEAR:
+        fade_curve = np.linspace(0.0, 1.0, fade_samples)
+    else:
+        fade_curve = np.geomspace(1e-4, 1.0, fade_samples)
     audio[:fade_samples] *= fade_curve
 
 
-def _apply_fade_out(audio: np.ndarray, sample_rate: int, fade_duration: float) -> None:
+def _apply_fade_out(audio: np.ndarray, sample_rate: int, fade_duration: float, fade_type: FadeType) -> None:
     """
     Apply linear fade-out to audio in-place.
 
     :param audio: Audio array
     :param sample_rate: Sample rate
     :param fade_duration: Fade duration in seconds
+    :param fade_type: Fade type 
     """
     fade_samples = int(sample_rate * fade_duration)
     fade_samples = min(fade_samples, len(audio))
-    fade_curve = np.linspace(1.0, 0.0, fade_samples)
+    if fade_type == FadeType.LINEAR:
+        fade_curve = np.linspace(0.0, 1.0, fade_samples)
+    else:
+        fade_curve = np.geomspace(1e-4, 1.0, fade_samples)
     audio[-fade_samples:] *= fade_curve
 
 
@@ -245,6 +253,7 @@ def generate_noise(
     volume: float = DEFAULT_VOLUME,
     fade_in: float = DEFAULT_FADE_IN,
     fade_out: float = DEFAULT_FADE_OUT,
+    fade_type: FadeType = FadeType.LINEAR,
     seed: Optional[int] = DEFAULT_SEED
 ) -> np.ndarray:
     """
@@ -256,6 +265,7 @@ def generate_noise(
     :param volume: Volume multiplier
     :param fade_in: Fade-in duration in seconds
     :param fade_out: Fade-out duration in seconds
+    :param fade_type: Fade type
     :param seed: Random seed for reproducible noise
     """
     _validate_generate_noise(
@@ -265,6 +275,7 @@ def generate_noise(
         volume=volume,
         fade_in=fade_in,
         fade_out=fade_out,
+        fade_type=fade_type,
         seed=seed)
 
     samples = int(duration * sample_rate)
@@ -276,9 +287,9 @@ def generate_noise(
 
     audio = _normalize(audio)
 
-    _apply_fade_in(audio, sample_rate, fade_in)
+    _apply_fade_in(audio, sample_rate, fade_in, fade_type)
 
-    _apply_fade_out(audio, sample_rate, fade_out)
+    _apply_fade_out(audio, sample_rate, fade_out, fade_type)
 
     audio *= volume
 
