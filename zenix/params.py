@@ -15,6 +15,13 @@ class NoiseType(Enum):
     VIOLET = "violet"
 
 
+class FadeType(Enum):
+    """Fade curve type."""
+
+    LINEAR = "linear"
+    EXPONENTIAL = "exponential"
+
+
 DEFAULT_SEED = None
 DEFAULT_SAMPLE_RATE = 44100
 DEFAULT_DURATION = 30.0
