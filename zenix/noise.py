@@ -75,7 +75,7 @@ class Noise:
             f"volume={self.volume}, "
             f"fade_in={self.fade_in}, "
             f"fade_out={self.fade_out}, "
-            f"fade_type={self.fade_type}, "
+            f"fade_type={self.fade_type.value!r}, "
             f"seed={self.seed})"
         )
 
