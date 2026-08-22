@@ -20,6 +20,7 @@ from .params import INVALID_FADE_OUT_ERROR
 from .params import INVALID_AUDIO_ERROR
 from .params import INVALID_LOOP_TYPE_ERROR, INVALID_FILEPATH_ERROR
 from .params import DEFAULT_SEED, INVALID_SEED_ERROR
+from .params import FadeType, INVALID_FADE_TYPE_ERROR
 
 
 def _validate_audio_buffer(
@@ -75,6 +76,7 @@ def _validate_generate_noise(
     volume: Any,
     fade_in: Any,
     fade_out: Any,
+    fade_type: Any,
     seed: Any,
 ) -> None:
     """
@@ -86,6 +88,7 @@ def _validate_generate_noise(
     :param volume: Volume (0.0 - 1.0)
     :param fade_in: Fade-in duration in seconds
     :param fade_out: Fade-out duration in seconds
+    :param fade_type: Fade type
     :param seed: Random seed for reproducible noise
     """
     if not isinstance(noise_type, NoiseType):
@@ -105,6 +108,9 @@ def _validate_generate_noise(
 
     if isinstance(fade_out, bool) or not isinstance(fade_out, (int, float)) or fade_out < 0 or fade_out > duration:
         raise ZenixValidationError(INVALID_FADE_OUT_ERROR)
+    
+    if not isinstance(fade_type, FadeType):
+        raise ZenixValidationError(INVALID_FADE_TYPE_ERROR)
 
     if seed is not None:
         if isinstance(seed, bool) or not isinstance(seed, int) or seed < 0:
