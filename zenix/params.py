@@ -49,4 +49,6 @@ INVALID_FILEPATH_ERROR = "`filepath` must be a non-empty string."
 
 INVALID_SEED_ERROR = "`seed` must be a non-negative integer or None."
 
+INVALID_FADE_TYPE_ERROR = "`fade_type` must be an instance of FadeType."
+
 EXIT_MESSAGE = "See you. Bye!"
