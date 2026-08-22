@@ -191,7 +191,7 @@ def _generate_violet_noise(samples: int) -> np.ndarray:
 
 def _apply_fade_in(audio: np.ndarray, sample_rate: int, fade_duration: float, fade_type: FadeType) -> None:
     """
-    Apply linear fade-in to audio in-place.
+    Apply fade-in to audio in-place.
 
     :param audio: Audio array
     :param sample_rate: Sample rate
@@ -209,7 +209,7 @@ def _apply_fade_in(audio: np.ndarray, sample_rate: int, fade_duration: float, fa
 
 def _apply_fade_out(audio: np.ndarray, sample_rate: int, fade_duration: float, fade_type: FadeType) -> None:
     """
-    Apply linear fade-out to audio in-place.
+    Apply fade-out to audio in-place.
 
     :param audio: Audio array
     :param sample_rate: Sample rate
