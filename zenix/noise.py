@@ -25,6 +25,7 @@ class Noise:
         volume: float = DEFAULT_VOLUME,
         fade_in: float = DEFAULT_FADE_IN,
         fade_out: float = DEFAULT_FADE_OUT,
+        fade_type: FadeType = FadeType.LINEAR,
         seed: Optional[int] = DEFAULT_SEED
     ) -> None:
         """
@@ -36,6 +37,7 @@ class Noise:
         :param volume: Volume multiplier
         :param fade_in: Fade-in duration in seconds
         :param fade_out: Fade-out duration in seconds
+        :param fade_type: Fade type
         :param seed: Random seed for reproducible noise
         """
         _validate_generate_noise(
@@ -45,6 +47,7 @@ class Noise:
             volume=volume,
             fade_in=fade_in,
             fade_out=fade_out,
+            fade_type=fade_type,
             seed=seed
         )
 
@@ -54,6 +57,7 @@ class Noise:
         self._volume = volume
         self._fade_in = fade_in
         self._fade_out = fade_out
+        self._fade_type = fade_type
         self._seed = seed
         self._audio = None
 
@@ -71,6 +75,7 @@ class Noise:
             f"volume={self.volume}, "
             f"fade_in={self.fade_in}, "
             f"fade_out={self.fade_out}, "
+            f"fade_type={self.fade_type}, "
             f"seed={self.seed})"
         )
 
@@ -127,6 +132,15 @@ class Noise:
         :return: Fade-out duration in seconds
         """
         return self._fade_out
+    
+    @property
+    def fade_type(self) -> FadeType:
+        """
+        Return fade type.
+
+        :return: Fade type
+        """
+        return self._fade_type
 
     @property
     def audio(self) -> np.ndarray:
