@@ -177,6 +177,7 @@ class Noise:
             volume=self.volume,
             fade_in=self.fade_in,
             fade_out=self.fade_out,
+            fade_type=self.fade_type,
             seed=self.seed
         )
         return self._audio
