@@ -15,6 +15,13 @@ class NoiseType(Enum):
     VIOLET = "violet"
 
 
+class FadeType(Enum):
+    """Fade curve type."""
+
+    LINEAR = "linear"
+    EXPONENTIAL = "exponential"
+
+
 DEFAULT_SEED = None
 DEFAULT_SAMPLE_RATE = 44100
 DEFAULT_DURATION = 30.0
@@ -41,5 +48,7 @@ INVALID_LOOP_TYPE_ERROR = "`loop` must be bool."
 INVALID_FILEPATH_ERROR = "`filepath` must be a non-empty string."
 
 INVALID_SEED_ERROR = "`seed` must be a non-negative integer or None."
+
+INVALID_FADE_TYPE_ERROR = "`fade_type` must be an instance of FadeType."
 
 EXIT_MESSAGE = "See you. Bye!"

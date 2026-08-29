@@ -7,10 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Violet noise
+- `fade_type` parameter
+- `--fade-type` argument
+- `FadeType` enum
 ### Changed
 - Exit message updated
 - Validation system modified
 - Test system modified
+- `README.md` updated
 ## [0.8] - 2026-07-17
 ### Added
 - `seed` parameter
