@@ -65,7 +65,7 @@ Zenix is a lightweight tool for generating procedural noise such as white, pink,
 ### CLI
 
 ```bash
-zenix --type=white --duration=120 --volume=0.25 --fade-in=2 --fade-out=3 --sample-rate=44000 --loop --seed=5 --output=noise.wav
+zenix --type=white --duration=120 --volume=0.25 --fade-in=2 --fade-out=3 --fade-type=linear --sample-rate=44000 --loop --seed=5 --output=noise.wav
 ```
 
 #### Arguments
@@ -77,6 +77,7 @@ zenix --type=white --duration=120 --volume=0.25 --fade-in=2 --fade-out=3 --sampl
 | `--volume` | Output volume multiplier | `0.3` |
 | `--fade-in` | Fade-in duration in seconds | `2` |
 | `--fade-out` | Fade-out duration in seconds | `2` |
+| `--fade-type` | Fade curve type | `linear` |
 | `--sample-rate` | Audio sample rate in Hz | `44100` |
 | `--loop` | Enable continuous looping playback | `False` |
 | `--output` | Save generated noise to WAV file | `None` |
@@ -90,7 +91,7 @@ zenix --type=white --duration=120 --volume=0.25 --fade-in=2 --fade-out=3 --sampl
 Generate procedural noise as a PCM `int16` NumPy array.
 
 ```python
-from zenix import generate_noise, play_noise, save_noise, NoiseType
+from zenix import generate_noise, play_noise, save_noise, NoiseType, FadeType
 audio = generate_noise(
         noise_type=NoiseType.WHITE,
         duration=120,
@@ -98,6 +99,7 @@ audio = generate_noise(
         volume=0.25,
         fade_in=2,
 		fade_out=2,
+        fade_type=FadeType.LINEAR,
         seed=4
     )
 ```
@@ -110,6 +112,7 @@ audio = generate_noise(
 | `volume` | `float` | Output volume multiplier | `0.3` |
 | `fade_in` | `float` | Fade-in duration in seconds | `2` |
 | `fade_out` | `float` | Fade-out duration in seconds | `2` |
+| `fade_type` | `FadeType` | Fade curve type | `FadeType.LINEAR` |
 | `seed` | `int` | Random seed for reproducible noise | `None` |
 
 
@@ -162,7 +165,7 @@ save_noise(
 The `Noise` class provides an object-oriented interface for generating, playing, and saving procedural noise.
 
 ```python
-from zenix import Noise, NoiseType
+from zenix import Noise, NoiseType, FadeType
 
 noise = Noise(
     noise_type=NoiseType.PINK,
@@ -170,7 +173,8 @@ noise = Noise(
     sample_rate=44100,
     volume=0.25,
     fade_in=2,
-    fade_out=2
+    fade_out=2,
+    fade_type=FadeType.LINEAR
 )
 
 noise.play()
@@ -185,6 +189,7 @@ noise.save("noise.wav")
 | `volume`      | `float`     | Output volume multiplier               | `0.3`             |
 | `fade_in`     | `float`     | Fade-in duration in seconds            | `2`               |
 | `fade_out`    | `float`     | Fade-out duration in seconds           | `2`               |
+| `fade_type`   | `FadeType`  | Fade curve type                        | `FadeType.LINEAR` |
 | `seed`        | `int`       | Random seed for reproducible noise     | `None`            |
 
 The generated audio can be accessed through the `audio` property, which automatically generates the noise on first access and returns a PCM `int16` NumPy array.
