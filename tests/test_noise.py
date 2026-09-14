@@ -261,3 +261,11 @@ def test_invalid_fade_out():
         match="`fade_out` must be a non-negative number not exceeding `duration`."
     ):
         Noise(duration=1, fade_out=2, fade_in=0.1)
+
+
+def test_invalid_fade_type():
+    with pytest.raises(
+        ZenixValidationError,
+        match="`fade_type` must be an instance of FadeType.",
+    ):
+        Noise(duration=1, fade_out=0.1, fade_in=0.1, fade_type="linear")
