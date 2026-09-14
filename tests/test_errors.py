@@ -193,3 +193,11 @@ def test_save_noise_invalid_sample_rate_value(tmp_path):
     audio = np.zeros(10, dtype=np.int16)
     with pytest.raises(ZenixValidationError):
         save_noise(str(filepath), audio, sample_rate=0)
+
+
+def test_invalid_fade_type():
+    with pytest.raises(
+        ZenixValidationError,
+        match="`fade_type` must be an instance of FadeType.",
+    ):
+        generate_noise(fade_type="linear")
