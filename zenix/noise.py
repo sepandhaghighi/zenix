@@ -132,7 +132,7 @@ class Noise:
         :return: Fade-out duration in seconds
         """
         return self._fade_out
-    
+
     @property
     def fade_type(self) -> FadeType:
         """
