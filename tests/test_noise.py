@@ -2,7 +2,7 @@
 import numpy as np
 import pytest
 
-from zenix import Noise, NoiseType
+from zenix import Noise, NoiseType, FadeType
 from zenix import ZenixValidationError
 
 
@@ -15,6 +15,7 @@ def test_noise_default_init():
     assert noise.volume == 0.3
     assert noise.fade_in == 2.0
     assert noise.fade_out == 2.0
+    assert noise.fade_type == FadeType.LINEAR
 
 
 @pytest.mark.parametrize("noise_type", list(NoiseType))
@@ -34,6 +35,29 @@ def test_noise_init_all_types(noise_type):
     assert noise.volume == 0.5
     assert noise.fade_in == 0.1
     assert noise.fade_out == 0.1
+
+
+@pytest.mark.parametrize("fade_type", list(FadeType))
+def test_noise_init_fade_types(fade_type):
+    noise = Noise(fade_type=fade_type)
+
+    assert noise.fade_type == fade_type
+
+
+@pytest.mark.parametrize("fade_type", list(FadeType))
+def test_noise_generate_fade_type(monkeypatch, fade_type):
+    calls = {}
+
+    def fake_generate_noise(*args, **kwargs):
+        calls.update(kwargs)
+        return np.zeros(10, dtype=np.int16)
+
+    monkeypatch.setattr("zenix.noise.generate_noise", fake_generate_noise)
+
+    noise = Noise(fade_type=fade_type)
+    noise.generate()
+
+    assert calls["fade_type"] == fade_type
 
 
 def test_noise_repr():
