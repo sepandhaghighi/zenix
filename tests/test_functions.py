@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 
 from zenix import generate_noise, play_noise, save_noise
-from zenix import NoiseType
+from zenix import NoiseType, FadeType
 
 
 def test_generate_noise_seed1():
@@ -210,3 +210,48 @@ def test_save_does_not_modify_audio(tmp_path):
     save_noise(str(filepath), audio)
 
     assert np.array_equal(audio, original)
+
+
+@pytest.mark.parametrize("fade_type", list(FadeType))
+def test_generate_noise_fade_types(fade_type):
+    audio = generate_noise(
+        duration=1.0,
+        sample_rate=100,
+        fade_type=fade_type,
+    )
+
+    assert isinstance(audio, np.ndarray)
+    assert audio.dtype == np.int16
+    assert len(audio) == 100
+
+
+def test_generate_noise_fade_types_differ():
+    linear = generate_noise(
+        duration=1.0,
+        sample_rate=100,
+        fade_in=0.5,
+        fade_type=FadeType.LINEAR,
+        seed=42,
+    )
+
+    exponential = generate_noise(
+        duration=1.0,
+        sample_rate=100,
+        fade_in=0.5,
+        fade_type=FadeType.EXPONENTIAL,
+        seed=42,
+    )
+
+    assert not np.array_equal(linear, exponential)
+
+
+def test_generate_noise_exponential_fade_out():
+    audio = generate_noise(
+        duration=1.0,
+        sample_rate=100,
+        fade_out=0.5,
+        fade_type=FadeType.EXPONENTIAL,
+        seed=42,
+    )
+
+    assert abs(audio[-1]) < abs(audio[-10])
