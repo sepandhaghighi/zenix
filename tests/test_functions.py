@@ -214,20 +214,22 @@ def test_save_does_not_modify_audio(tmp_path):
 
 @pytest.mark.parametrize("fade_type", list(FadeType))
 def test_generate_noise_fade_types(fade_type):
+    duration = 5
+    sample_rate = 100
     audio = generate_noise(
-        duration=1.0,
-        sample_rate=100,
+        duration=duration,
+        sample_rate=sample_rate,
         fade_type=fade_type,
     )
 
     assert isinstance(audio, np.ndarray)
     assert audio.dtype == np.int16
-    assert len(audio) == 100
+    assert len(audio) == int(duration * sample_rate)
 
 
 def test_generate_noise_fade_types_differ():
     linear = generate_noise(
-        duration=1.0,
+        duration=5.0,
         sample_rate=100,
         fade_in=0.5,
         fade_type=FadeType.LINEAR,
@@ -235,7 +237,7 @@ def test_generate_noise_fade_types_differ():
     )
 
     exponential = generate_noise(
-        duration=1.0,
+        duration=5.0,
         sample_rate=100,
         fade_in=0.5,
         fade_type=FadeType.EXPONENTIAL,
@@ -247,7 +249,7 @@ def test_generate_noise_fade_types_differ():
 
 def test_generate_noise_exponential_fade_out():
     audio = generate_noise(
-        duration=1.0,
+        duration=5.0,
         sample_rate=100,
         fade_out=0.5,
         fade_type=FadeType.EXPONENTIAL,
