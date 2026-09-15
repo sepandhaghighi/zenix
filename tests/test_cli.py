@@ -4,7 +4,7 @@ import pytest
 from unittest.mock import patch
 from zenix.cli import main
 from zenix.cli import _print_cli_error
-from zenix import NoiseType, FadeType
+from zenix import NoiseType
 from zenix import ZenixValidationError
 
 
