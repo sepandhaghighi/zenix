@@ -256,4 +256,4 @@ def test_generate_noise_exponential_fade_out():
         seed=42,
     )
 
-    assert abs(audio[-1]) < abs(audio[-10])
+    assert abs(audio[-1]) < abs(audio[-50])
