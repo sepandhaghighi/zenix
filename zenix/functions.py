@@ -108,7 +108,7 @@ def _validate_generate_noise(
 
     if isinstance(fade_out, bool) or not isinstance(fade_out, (int, float)) or fade_out < 0 or fade_out > duration:
         raise ZenixValidationError(INVALID_FADE_OUT_ERROR)
-    
+
     if not isinstance(fade_type, FadeType):
         raise ZenixValidationError(INVALID_FADE_TYPE_ERROR)
 
@@ -196,7 +196,7 @@ def _apply_fade_in(audio: np.ndarray, sample_rate: int, fade_duration: float, fa
     :param audio: Audio array
     :param sample_rate: Sample rate
     :param fade_duration: Fade duration in seconds
-    :param fade_type: Fade type 
+    :param fade_type: Fade type
     """
     fade_samples = int(sample_rate * fade_duration)
     fade_samples = min(fade_samples, len(audio))
@@ -214,7 +214,7 @@ def _apply_fade_out(audio: np.ndarray, sample_rate: int, fade_duration: float, f
     :param audio: Audio array
     :param sample_rate: Sample rate
     :param fade_duration: Fade duration in seconds
-    :param fade_type: Fade type 
+    :param fade_type: Fade type
     """
     fade_samples = int(sample_rate * fade_duration)
     fade_samples = min(fade_samples, len(audio))
