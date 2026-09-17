@@ -163,41 +163,38 @@ def test_invalid_loop_type():
 
 def test_save_noise_invalid_filepath():
     audio = np.zeros(100, dtype=np.int16)
-    with pytest.raises(ZenixValidationError):
+    with pytest.raises(ZenixValidationError, match="`filepath` must be a non-empty string."):
         save_noise("", audio)
 
 
 def test_save_noise_invalid_audio_dtype(tmp_path):
     filepath = tmp_path / "bad.wav"
     audio = np.zeros(10, dtype=np.float32)
-    with pytest.raises(ZenixValidationError):
+    with pytest.raises(ZenixValidationError, match="`audio` must be a non-empty 1D numpy.ndarray with dtype int16."):
         save_noise(str(filepath), audio)
 
 
 def test_save_noise_invalid_sample_rate_type1(tmp_path):
     filepath = tmp_path / "bad.wav"
     audio = np.zeros(10, dtype=np.int16)
-    with pytest.raises(ZenixValidationError):
+    with pytest.raises(ZenixValidationError, match="`sample_rate` must be a positive integer."):
         save_noise(str(filepath), audio, sample_rate=44100.0)
 
 
 def test_save_noise_invalid_sample_rate_type2(tmp_path):
     filepath = tmp_path / "bad.wav"
     audio = np.zeros(10, dtype=np.int16)
-    with pytest.raises(ZenixValidationError):
+    with pytest.raises(ZenixValidationError, match="`sample_rate` must be a positive integer."):
         save_noise(str(filepath), audio, sample_rate=True)
 
 
 def test_save_noise_invalid_sample_rate_value(tmp_path):
     filepath = tmp_path / "bad.wav"
     audio = np.zeros(10, dtype=np.int16)
-    with pytest.raises(ZenixValidationError):
+    with pytest.raises(ZenixValidationError, match="`sample_rate` must be a positive integer."):
         save_noise(str(filepath), audio, sample_rate=0)
 
 
 def test_invalid_fade_type():
-    with pytest.raises(
-        ZenixValidationError,
-        match="`fade_type` must be an instance of FadeType.",
-    ):
+    with pytest.raises(ZenixValidationError, match="`fade_type` must be an instance of FadeType."):
         generate_noise(fade_type="linear")
