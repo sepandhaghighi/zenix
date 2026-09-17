@@ -216,56 +216,35 @@ def test_generate_stores_audio():
 
 
 def test_invalid_noise_type():
-    with pytest.raises(
-        ZenixValidationError,
-        match="`noise_type` must be an instance of NoiseType."
-    ):
+    with pytest.raises(ZenixValidationError, match="`noise_type` must be an instance of NoiseType."):
         Noise(noise_type="white")  # type: ignore
 
 
 def test_invalid_duration():
-    with pytest.raises(
-        ZenixValidationError,
-        match="`duration` must be a number greater than 0."
-    ):
+    with pytest.raises(ZenixValidationError, match="`duration` must be a number greater than 0."):
         Noise(duration=0)
 
 
 def test_invalid_sample_rate():
-    with pytest.raises(
-        ZenixValidationError,
-        match="`sample_rate` must be a positive integer."
-    ):
+    with pytest.raises(ZenixValidationError, match="`sample_rate` must be a positive integer."):
         Noise(sample_rate=0)
 
 
 def test_invalid_volume():
-    with pytest.raises(
-        ZenixValidationError,
-        match="`volume` must be a number between 0.0 and 1.0."
-    ):
+    with pytest.raises(ZenixValidationError, match="`volume` must be a number between 0.0 and 1.0."):
         Noise(volume=1.5)
 
 
 def test_invalid_fade_in():
-    with pytest.raises(
-        ZenixValidationError,
-        match="`fade_in` must be a non-negative number not exceeding `duration`."
-    ):
+    with pytest.raises(ZenixValidationError, match="`fade_in` must be a non-negative number not exceeding `duration`."):
         Noise(duration=1, fade_in=2, fade_out=0.1)
 
 
 def test_invalid_fade_out():
-    with pytest.raises(
-        ZenixValidationError,
-        match="`fade_out` must be a non-negative number not exceeding `duration`."
-    ):
+    with pytest.raises(ZenixValidationError, match="`fade_out` must be a non-negative number not exceeding `duration`."):
         Noise(duration=1, fade_out=2, fade_in=0.1)
 
 
 def test_invalid_fade_type():
-    with pytest.raises(
-        ZenixValidationError,
-        match="`fade_type` must be an instance of FadeType.",
-    ):
+    with pytest.raises(ZenixValidationError, match="`fade_type` must be an instance of FadeType."):
         Noise(duration=1, fade_out=0.1, fade_in=0.1, fade_type="linear")
