@@ -2,7 +2,7 @@
 """zenix params."""
 from enum import Enum
 
-ZENIX_VERSION = "0.8"
+ZENIX_VERSION = "0.9"
 
 
 class NoiseType(Enum):
