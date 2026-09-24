@@ -220,10 +220,7 @@ def _apply_fade_in(audio: np.ndarray, sample_rate: int, fade_duration: float, fa
     """
     fade_samples = int(sample_rate * fade_duration)
     fade_samples = min(fade_samples, len(audio))
-    if fade_type == FadeType.LINEAR:
-        fade_curve = np.linspace(0.0, 1.0, fade_samples)
-    else:
-        fade_curve = np.geomspace(1e-4, 1.0, fade_samples)
+    fade_curve = _create_fade_curve(samples=fade_samples, fade_type=fade_type, is_fade_in=True)
     audio[:fade_samples] *= fade_curve
 
 
