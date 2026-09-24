@@ -189,6 +189,26 @@ def _generate_violet_noise(samples: int) -> np.ndarray:
     return violet.astype(np.float32)
 
 
+def _create_fade_curve(samples: int, fade_type: FadeType, is_fade_in: bool = True) -> np.ndarray:
+    """
+    Create a fade curve.
+
+    :param samples: Number of samples
+    :param fade_type: Fade curve type
+    :param is_fade_in: Whether the curve is for fade-in
+    """
+    position = np.linspace(0.0, 1.0, samples)
+
+    if fade_type == FadeType.LINEAR:
+        curve = position
+    else:
+        curve = np.geomspace(1e-4, 1.0, samples)
+    
+    if not is_fade_in:
+        curve = curve[::-1]
+    return curve.astype(np.float32)
+
+
 def _apply_fade_in(audio: np.ndarray, sample_rate: int, fade_duration: float, fade_type: FadeType) -> None:
     """
     Apply fade-in to audio in-place.
@@ -200,10 +220,7 @@ def _apply_fade_in(audio: np.ndarray, sample_rate: int, fade_duration: float, fa
     """
     fade_samples = int(sample_rate * fade_duration)
     fade_samples = min(fade_samples, len(audio))
-    if fade_type == FadeType.LINEAR:
-        fade_curve = np.linspace(0.0, 1.0, fade_samples)
-    else:
-        fade_curve = np.geomspace(1e-4, 1.0, fade_samples)
+    fade_curve = _create_fade_curve(samples=fade_samples, fade_type=fade_type, is_fade_in=True)
     audio[:fade_samples] *= fade_curve
 
 
@@ -218,10 +235,7 @@ def _apply_fade_out(audio: np.ndarray, sample_rate: int, fade_duration: float, f
     """
     fade_samples = int(sample_rate * fade_duration)
     fade_samples = min(fade_samples, len(audio))
-    if fade_type == FadeType.LINEAR:
-        fade_curve = np.linspace(1.0, 0.0, fade_samples)
-    else:
-        fade_curve = np.geomspace(1.0, 1e-4, fade_samples)
+    fade_curve = _create_fade_curve(samples=fade_samples, fade_type=fade_type, is_fade_in=False)
     audio[-fade_samples:] *= fade_curve
 
 
