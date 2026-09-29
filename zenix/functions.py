@@ -134,57 +134,62 @@ def _validate_play_noise(
         raise ZenixValidationError(INVALID_LOOP_TYPE_ERROR)
 
 
-def _generate_white_noise(samples: int) -> np.ndarray:
+def _generate_white_noise(samples: int, rng: np.random.RandomState) -> np.ndarray:
     """
     Generate white noise.
 
     :param samples: Number of samples
+    :param rng: Random number generator
     """
-    return np.random.normal(0, 1, samples).astype(np.float32)
+    return rng.normal(0, 1, samples).astype(np.float32)
 
 
-def _generate_pink_noise(samples: int) -> np.ndarray:
+def _generate_pink_noise(samples: int, rng: np.random.RandomState) -> np.ndarray:
     """
     Generate pink noise using Voss-McCartney algorithm approximation.
 
     :param samples: Number of samples
+    :param rng: Random number generator
     """
     rows = 16
-    array = np.random.randn(rows, samples)
+    array = rng.randn(rows, samples)
     array = np.cumsum(array, axis=1)
     pink = np.sum(array, axis=0)
     return pink.astype(np.float32)
 
 
-def _generate_brown_noise(samples: int) -> np.ndarray:
+def _generate_brown_noise(samples: int, rng: np.random.RandomState) -> np.ndarray:
     """
     Generate brown (Brownian) noise.
 
     :param samples: Number of samples
+    :param rng: Random number generator
     """
-    white = np.random.normal(0, 1, samples)
+    white = rng.normal(0, 1, samples)
     brown = np.cumsum(white)
     return brown.astype(np.float32)
 
 
-def _generate_blue_noise(samples: int) -> np.ndarray:
+def _generate_blue_noise(samples: int, rng: np.random.RandomState) -> np.ndarray:
     """
     Generate blue noise.
 
     :param samples: Number of samples
+    :param rng: Random number generator
     """
-    white = np.random.normal(0, 1, samples + 1)
+    white = rng.normal(0, 1, samples + 1)
     blue = np.diff(white)
     return blue.astype(np.float32)
 
 
-def _generate_violet_noise(samples: int) -> np.ndarray:
+def _generate_violet_noise(samples: int, rng: np.random.RandomState) -> np.ndarray:
     """
     Generate violet noise (stronger high-frequency emphasis).
 
     :param samples: Number of samples
+    :param rng: Random number generator
     """
-    white = np.random.normal(0, 1, samples + 2)
+    white = rng.normal(0, 1, samples + 2)
     violet = np.diff(np.diff(white))
     return violet.astype(np.float32)
 
@@ -259,6 +264,9 @@ def generate_noise(
     """
     Generate selected noise type with fade-in and smoothing.
 
+    Randomness is isolated from NumPy's global random state. Pass a seed for
+    reproducible output; None uses fresh entropy for each call.
+
     :param noise_type: white | pink | brown | blue
     :param duration: Duration in seconds
     :param sample_rate: Sample rate
@@ -280,10 +288,10 @@ def generate_noise(
 
     samples = int(duration * sample_rate)
 
-    if seed is not None:
-        np.random.seed(seed)
+    # Preserve the existing seeded output while keeping the RNG local.
+    rng = np.random.RandomState(seed)
 
-    audio = NOISE_GENERATORS[noise_type](samples)
+    audio = NOISE_GENERATORS[noise_type](samples, rng)
 
     audio = _normalize(audio)
 
