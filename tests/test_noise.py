@@ -98,9 +98,10 @@ def test_generate_returns_audio(noise_type):
     assert len(audio) == 40000
 
 
-def test_generate_seed1():
+@pytest.mark.parametrize("noise_type", list(NoiseType))
+def test_generate_seed1(noise_type):
     noise1 = Noise(
-        noise_type=NoiseType.BLUE,
+        noise_type=noise_type,
         duration=5,
         sample_rate=8000,
         seed=4
@@ -109,7 +110,7 @@ def test_generate_seed1():
     audio1 = noise1.generate()
 
     noise2 = Noise(
-        noise_type=NoiseType.BLUE,
+        noise_type=noise_type,
         duration=5,
         sample_rate=8000,
         seed=15
@@ -126,9 +127,10 @@ def test_generate_seed1():
     assert not all(audio1 == audio2)
 
 
-def test_generate_seed2():
+@pytest.mark.parametrize("noise_type", list(NoiseType))
+def test_generate_seed2(noise_type):
     noise1 = Noise(
-        noise_type=NoiseType.BLUE,
+        noise_type=noise_type,
         duration=5,
         sample_rate=8000,
         seed=40
@@ -137,7 +139,7 @@ def test_generate_seed2():
     audio1 = noise1.generate()
 
     noise2 = Noise(
-        noise_type=NoiseType.BLUE,
+        noise_type=noise_type,
         duration=5,
         sample_rate=8000,
         seed=40

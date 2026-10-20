@@ -7,12 +7,13 @@ from zenix import generate_noise, play_noise, save_noise
 from zenix import NoiseType, FadeType
 
 
-def test_generate_noise_seed1():
+@pytest.mark.parametrize("noise_type", list(NoiseType))
+def test_generate_noise_seed1(noise_type):
     duration = 1.0
     sample_rate = 8000
 
     audio1 = generate_noise(
-        noise_type=NoiseType.WHITE,
+        noise_type=noise_type,
         duration=duration,
         sample_rate=sample_rate,
         volume=1.0,
@@ -22,7 +23,7 @@ def test_generate_noise_seed1():
     )
 
     audio2 = generate_noise(
-        noise_type=NoiseType.WHITE,
+        noise_type=noise_type,
         duration=duration,
         sample_rate=sample_rate,
         volume=1.0,
@@ -40,12 +41,13 @@ def test_generate_noise_seed1():
     assert not all(audio1 == audio2)
 
 
-def test_generate_noise_seed2():
+@pytest.mark.parametrize("noise_type", list(NoiseType))
+def test_generate_noise_seed2(noise_type):
     duration = 1.0
     sample_rate = 8000
 
     audio1 = generate_noise(
-        noise_type=NoiseType.WHITE,
+        noise_type=noise_type,
         duration=duration,
         sample_rate=sample_rate,
         volume=1.0,
@@ -55,7 +57,7 @@ def test_generate_noise_seed2():
     )
 
     audio2 = generate_noise(
-        noise_type=NoiseType.WHITE,
+        noise_type=noise_type,
         duration=duration,
         sample_rate=sample_rate,
         volume=1.0,
