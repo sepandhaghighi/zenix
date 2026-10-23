@@ -20,6 +20,7 @@ class FadeType(Enum):
 
     LINEAR = "linear"
     EXPONENTIAL = "exponential"
+    COSINE = "cosine"
 
 
 DEFAULT_SEED = None

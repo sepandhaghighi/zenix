@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
+import wave
+import numpy as np
 import pytest
 from unittest.mock import patch
 from zenix.cli import main
@@ -107,6 +109,24 @@ def test_cli_output_and_play(monkeypatch, tmp_path):
 
     assert filepath.exists()
     mock_play.assert_called_once()
+
+
+@pytest.mark.parametrize("fade_type", ["cosine", "COSINE"])
+def test_cli_cosine_output(monkeypatch, tmp_path, fade_type):
+    filepath = tmp_path / "cosine.wav"
+    monkeypatch.setattr(sys, "argv", [
+        "zenix", "--duration", "0.007", "--sample-rate", "1000", "--volume", "0.3",
+        "--fade-in", "0.005", "--fade-out", "0.005", "--fade-type", fade_type,
+        "--seed", "7", "--output", str(filepath),
+    ])
+    monkeypatch.setattr("zenix.functions.play", lambda *args, **kwargs: None)
+
+    main()
+
+    with wave.open(str(filepath), "rb") as wav:
+        assert (wav.getnchannels(), wav.getsampwidth(), wav.getframerate(), wav.getnframes()) == (1, 2, 1000, 7)
+        audio = np.frombuffer(wav.readframes(7), dtype="<i2")
+    np.testing.assert_array_equal(audio, [0, -396, 95, 1726, -2293, 1, 0])
 
 
 def test_cli_print_error(capsys):
