@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
+- Cosine fade curve
 - `_create_fade_curve` function
 ### Changed
 - `_apply_fade_in` function modified

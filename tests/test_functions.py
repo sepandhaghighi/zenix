@@ -246,7 +246,17 @@ def test_generate_noise_fade_types_differ():
         seed=42,
     )
 
+    cosine = generate_noise(
+        duration=5.0,
+        sample_rate=100,
+        fade_in=0.5,
+        fade_type=FadeType.COSINE,
+        seed=42,
+    )
+
     assert not np.array_equal(linear, exponential)
+    assert not np.array_equal(linear, cosine)
+    assert not np.array_equal(exponential, cosine)
 
 
 def test_generate_noise_exponential_fade_out():
@@ -259,3 +269,48 @@ def test_generate_noise_exponential_fade_out():
     )
 
     assert abs(audio[-1]) < abs(audio[-50])
+
+
+def test_generate_noise_cosine_fade_in():
+    audio = generate_noise(
+        duration=1.0,
+        sample_rate=10,
+        volume=0.3,
+        fade_in=0.5,
+        fade_out=0.1,
+        fade_type=FadeType.COSINE,
+        seed=7,
+    )
+
+    # Five-point cosine gains: 0, 0.14644661, 0.5, 0.85355339, 1.
+    assert np.array_equal(audio, [0, -382, 91, 1948, -4419, 11, -4, -9830, 5700, 0])
+
+
+def test_generate_noise_cosine_fade_out():
+    audio = generate_noise(
+        duration=1.0,
+        sample_rate=10,
+        volume=0.3,
+        fade_in=0.1,
+        fade_out=0.5,
+        fade_type=FadeType.COSINE,
+        seed=7,
+    )
+
+    # Fade-out reverses the five-point cosine gains.
+    assert np.array_equal(audio, [0, -2610, 183, 2282, -4419, 11, -4, -4915, 834, 0])
+
+
+def test_generate_noise_cosine_overlapping_fades():
+    audio = generate_noise(
+        duration=0.7,
+        sample_rate=10,
+        volume=0.3,
+        fade_in=0.5,
+        fade_out=0.5,
+        fade_type=FadeType.COSINE,
+        seed=7,
+    )
+
+    # The middle sample receives two partial gains before conversion to int16.
+    assert np.array_equal(audio, [0, -396, 95, 1726, -2293, 1, 0])
