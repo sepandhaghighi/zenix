@@ -206,6 +206,8 @@ def _create_fade_curve(samples: int, fade_type: FadeType, is_fade_in: bool = Tru
 
     if fade_type == FadeType.LINEAR:
         curve = position
+    elif fade_type == FadeType.COSINE:
+        curve = 0.5 * (1.0 - np.cos(np.pi * position))
     else:
         curve = np.geomspace(1e-4, 1.0, samples)
     
