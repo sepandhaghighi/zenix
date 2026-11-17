@@ -78,22 +78,22 @@ def test_generate_noise_seed2(noise_type):
 
 @pytest.mark.parametrize("noise_type", list(NoiseType))
 def test_generate_noise_seed3(noise_type):
-    audio1 = generate_noise(noise_type=noise_type, duration=1.0, seed=42)
-    audio2 = generate_noise(noise_type=noise_type, duration=1.0, seed=42)
+    audio1 = generate_noise(noise_type=noise_type, duration=5, seed=42)
+    audio2 = generate_noise(noise_type=noise_type, duration=5, seed=42)
     assert np.array_equal(audio1, audio2)
 
 
 @pytest.mark.parametrize("noise_type", list(NoiseType))
 def test_generate_noise_seed4(noise_type):
-    audio1 = generate_noise(noise_type=noise_type, duration=1.0, seed=42)
-    audio2 = generate_noise(noise_type=noise_type, duration=1.0, seed=123)
+    audio1 = generate_noise(noise_type=noise_type, duration=5, seed=42)
+    audio2 = generate_noise(noise_type=noise_type, duration=5, seed=123)
     assert not np.array_equal(audio1, audio2)
 
 
 @pytest.mark.parametrize("seed", [7, None])
 def test_generate_noise_seed5(seed):
     original_state = np.random.get_state()
-    generate_noise(duration=0.1, seed=seed)
+    generate_noise(duration=5, seed=seed)
     np.testing.assert_equal(np.random.get_state(), original_state)
 
 
