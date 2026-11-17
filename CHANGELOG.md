@@ -13,7 +13,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `_apply_fade_out` function modified
 - `Python 3.15` added to `test.yml`
 - Build system modified
-- Noise generation no longer modifies NumPy's global random state
+- `AUTHORS.md` updated
+- Global random state pollution bug fixed
 ## [0.9] - 2026-09-23
 ### Added
 - Violet noise
