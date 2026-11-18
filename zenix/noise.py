@@ -79,6 +79,26 @@ class Noise:
             f"seed={self.seed})"
         )
 
+    def __eq__(self, other: object) -> bool:
+        """
+        Compare noise objects.
+
+        :param other: Object to compare
+        """
+        if not isinstance(other, Noise):
+            return False
+
+        return (
+            self.noise_type == other.noise_type
+            and self.duration == other.duration
+            and self.sample_rate == other.sample_rate
+            and self.volume == other.volume
+            and self.fade_in == other.fade_in
+            and self.fade_out == other.fade_out
+            and self.fade_type == other.fade_type
+            and self.seed == other.seed
+        )
+
     @property
     def noise_type(self) -> NoiseType:
         """
