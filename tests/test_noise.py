@@ -83,6 +83,43 @@ def test_noise_repr():
     )
 
 
+def test_noise_equal():
+    noise1 = Noise(
+        noise_type=NoiseType.PINK,
+        duration=5,
+        sample_rate=8000,
+        volume=0.5,
+        fade_in=1,
+        fade_out=1,
+        seed=42
+    )
+
+    noise2 = Noise(
+        noise_type=NoiseType.PINK,
+        duration=5,
+        sample_rate=8000,
+        volume=0.5,
+        fade_in=1,
+        fade_out=1,
+        seed=42
+    )
+
+    assert noise1 == noise2
+
+
+def test_noise_not_equal():
+    noise1 = Noise(duration=5, seed=42)
+    noise2 = Noise(duration=5, seed=123)
+
+    assert noise1 != noise2
+
+
+def test_noise_not_equal_different_type():
+    noise = Noise()
+
+    assert noise != object()
+
+
 @pytest.mark.parametrize("noise_type", list(NoiseType))
 def test_generate_returns_audio(noise_type):
     noise = Noise(
