@@ -7,7 +7,8 @@ from art import text2art
 from typio import type_print, TypeMode
 from .params import DEFAULT_SAMPLE_RATE, DEFAULT_DURATION
 from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN, DEFAULT_FADE_OUT
-from .params import ZENIX_VERSION, NoiseType, FadeType, EXIT_MESSAGE
+from .params import NoiseType, FadeType, EXIT_MESSAGE
+from .params import ZENIX_VERSION, ZENIX_REPO, OVERVIEW
 from .errors import ZenixError
 from .functions import generate_noise, play_noise, save_noise
 
