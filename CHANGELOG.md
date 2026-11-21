@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Cosine fade curve
 - `_create_fade_curve` function
 - `Noise` class `__eq__` method
+- `--info` CLI argument
 ### Changed
 - `_apply_fade_in` function modified
 - `_apply_fade_out` function modified
