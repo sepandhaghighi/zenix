@@ -38,7 +38,7 @@ setup(
     keywords="noise white-noise pink-noise brown-noise audio sound dsp signal-processing cli productivity focus relaxation numpy",
     project_urls={
         'Source': 'https://github.com/sepandhaghighi/zenix'},
-    install_requires=['numpy>=1.20.0', 'nava>=0.4'],
+    install_requires=['numpy>=1.20.0', 'nava>=0.4', 'art>=1.8', 'typio>=0.4'],
     python_requires='>=3.7',
     classifiers=[
         'Development Status :: 4 - Beta',

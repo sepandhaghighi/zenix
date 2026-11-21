@@ -4,6 +4,16 @@ from enum import Enum
 
 ZENIX_VERSION = "0.9"
 
+ZENIX_REPO = "https://github.com/sepandhaghighi/zenix"
+
+OVERVIEW = """Zenix is a lightweight tool for generating procedural noise such as white, pink, and brown noise.
+It can be used both as a command-line application and as a Python library, making it suitable for quick terminal
+usage as well as integration into Python projects. Zenix generates noise programmatically using NumPy and plays it
+through an audio backend, allowing developers to create continuous background sound for focus, concentration, relaxation, or acoustic masking.
+With support for multiple noise types, configurable parameters, fade-in effects, and looping playback, Zenix provides a simple yet flexible way
+to work with procedural noise in both interactive and programmatic environments.
+"""
+
 
 class NoiseType(Enum):
     """Noise type enum."""
