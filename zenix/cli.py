@@ -3,11 +3,22 @@
 
 import argparse
 import sys
+from art import text2art
+from typio import type_print, TypeMode
 from .params import DEFAULT_SAMPLE_RATE, DEFAULT_DURATION
 from .params import DEFAULT_VOLUME, DEFAULT_FADE_IN, DEFAULT_FADE_OUT
-from .params import ZENIX_VERSION, NoiseType, FadeType, EXIT_MESSAGE
+from .params import NoiseType, FadeType, EXIT_MESSAGE
+from .params import ZENIX_VERSION, ZENIX_REPO, OVERVIEW
 from .errors import ZenixError
 from .functions import generate_noise, play_noise, save_noise
+
+
+def _print_zenix_help() -> None:
+    """Print Zenix details."""
+    type_print(text2art("Zenix"), mode=TypeMode.LINE, delay=0.1)
+    type_print(text2art("V:" + ZENIX_VERSION), mode=TypeMode.LINE, delay=0.1)
+    type_print(OVERVIEW, mode=TypeMode.CHAR, delay=0.05)
+    type_print(f"Repo : {ZENIX_REPO}", mode=TypeMode.CHAR, delay=0.05)
 
 
 def _print_cli_error(message: str, exit_code: int = 1) -> None:
@@ -31,6 +42,12 @@ def _parse_args() -> argparse.Namespace:
         "--version",
         action="store_true",
         help="Version",
+    )
+
+    parser.add_argument(
+        "--info",
+        action="store_true",
+        help="Display Zenix info"
     )
 
     parser.add_argument(
@@ -112,6 +129,9 @@ def _run(args: argparse.Namespace) -> None:
     """
     if args.version:
         print(ZENIX_VERSION)
+        return
+    if args.info:
+        _print_zenix_help()
         return
     try:
         audio = generate_noise(

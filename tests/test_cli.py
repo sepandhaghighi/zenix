@@ -2,6 +2,7 @@
 import sys
 import pytest
 from unittest.mock import patch
+from zenix.params import OVERVIEW, ZENIX_VERSION, ZENIX_REPO
 from zenix.cli import main
 from zenix.cli import _print_cli_error
 from zenix import NoiseType
@@ -12,7 +13,15 @@ def test_cli_version(monkeypatch, capsys):
     monkeypatch.setattr(sys, "argv", ["zenix", "--version"])
     main()
     captured = capsys.readouterr()
-    assert captured.out.strip()
+    assert captured.out.strip() == ZENIX_VERSION
+
+
+def test_cli_info(monkeypatch, capsys):
+    monkeypatch.setattr(sys, "argv", ["zenix", "--info"])
+    main()
+    captured = capsys.readouterr()
+    assert ZENIX_REPO in captured.out.strip()
+    assert OVERVIEW in captured.out.strip()
 
 
 def test_cli_default(monkeypatch):
