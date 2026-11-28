@@ -2,7 +2,7 @@
 """zenix params."""
 from enum import Enum
 
-ZENIX_VERSION = "0.9"
+ZENIX_VERSION = "1.0"
 
 ZENIX_REPO = "https://github.com/sepandhaghighi/zenix"
 
