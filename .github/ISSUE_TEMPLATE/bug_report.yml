@@ -86,6 +86,7 @@ body:
       label: Zenix version
       description: Which version of Zenix are you using?
       options:
+        - Zenix 1.0
         - Zenix 0.9
         - Zenix 0.8
         - Zenix 0.7
