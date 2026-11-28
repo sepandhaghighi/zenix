@@ -1,4 +1,4 @@
-numpy==2.5.4
+numpy==2.5.5
 nava==0.9
 art==6.5
 typio==1.4
