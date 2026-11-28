@@ -51,13 +51,13 @@ Zenix is a lightweight tool for generating procedural noise such as white, pink,
 ## Installation		
 
 ### Source Code
-- Download [Version 0.9](https://github.com/sepandhaghighi/zenix/archive/v0.9.zip) or [Latest Source](https://github.com/sepandhaghighi/zenix/archive/dev.zip)
+- Download [Version 1.0](https://github.com/sepandhaghighi/zenix/archive/v1.0.zip) or [Latest Source](https://github.com/sepandhaghighi/zenix/archive/dev.zip)
 - `pip install .`				
 
 ### PyPI
 
 - Check [Python Packaging User Guide](https://packaging.python.org/installing/)     
-- `pip install zenix==0.9`						
+- `pip install zenix==1.0`						
 
 
 ## Usage
